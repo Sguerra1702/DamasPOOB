@@ -1,6 +1,5 @@
 package presentation;
 
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +9,7 @@ import java.io.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class DamasGUI extends JFrame{
+public class DamasGUI extends JFrame {
 
     private JPanel mainPanel, gameModeSelectionPanel, gamePanel, midPanel;
 
@@ -23,10 +22,10 @@ public class DamasGUI extends JFrame{
     private JButton solo, vsButton, exit, normal, gottagofast;
 
     private JButton[][] board;
-    
+
     private Color color;
 
-    public DamasGUI(){
+    public DamasGUI() {
         prepareElements();
         prepareActions();
 
@@ -38,16 +37,17 @@ public class DamasGUI extends JFrame{
 
     }
 
-    public void prepareElements(){
+    public void prepareElements() {
         setTitle("DamasPOOB");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width /2, screenSize.height / 2);
+        setSize(screenSize.width / 2, screenSize.height / 2);
         setLocationRelativeTo(null);
         prepareElementsMenu();
+        prepareElementsGameSelect();
 
     }
 
-    public void prepareElementsMenu(){
+    public void prepareElementsMenu() {
         menuBar = new JMenuBar();
         archivo = new JMenu("Archivo");
         menuBar.add(archivo);
@@ -66,10 +66,10 @@ public class DamasGUI extends JFrame{
         settings.add(tamano);
         settings.add(colorselect);
         setJMenuBar(menuBar);
-        //mainPanel botones
+        // mainPanel botones
         mainPanel = new JPanel();
         add(mainPanel);
-        mainPanel.setLayout(new GridLayout(10,1,1,10));
+        mainPanel.setLayout(new GridLayout(10, 1, 1, 10));
         mainPanel.add(menuBar);
         solo = new JButton("Un jugador");
         mainPanel.add(solo);
@@ -80,27 +80,26 @@ public class DamasGUI extends JFrame{
 
     }
 
-    public void prepareElementsGameSelect(){
+    public void prepareElementsGameSelect() {
         gameModeSelectionPanel = new JPanel();
         setJMenuBar(menuBar);
         add(gameModeSelectionPanel);
         gameModeSelectionPanel.add(menuBar);
-        gameModeSelectionPanel.setLayout(new GridLayout(10,1,1,10));
+        gameModeSelectionPanel.setLayout(new GridLayout(10, 1, 1, 10));
         normal = new JButton("Partida Normal");
         gameModeSelectionPanel.add(normal);
         gottagofast = new JButton("Partida QuickTime");
         gameModeSelectionPanel.add(gottagofast);
 
-
     }
 
-    public void prepareElementsBoard(){
+    public void prepareElementsBoard() {
         board = new JButton[10][10];
         Border blackline = BorderFactory.createLineBorder(Color.black);
         gamePanel = new JPanel();
         gamePanel.setBorder(new CompoundBorder(new EmptyBorder(3, 3, 3, 3), new TitledBorder("Board TantFant")));
         gamePanel.setLayout(new GridLayout(10, 10));
-        for(int i=0;i<(10);i++) {
+        for (int i = 0; i < (10); i++) {
             for (int j = 0; j < (10); j++) {
                 if (i == 0) {
                     board[i][j] = new JButton("X");
@@ -144,6 +143,22 @@ public class DamasGUI extends JFrame{
         stats.add(fichasCap);
         midPanel.add(stats, BorderLayout.WEST);
         add(midPanel, BorderLayout.WEST);
+        delButtons();
+        refresh();
+
+    }
+
+    private void delButtons() {
+        gottagofast.setVisible(false);
+        ;
+        normal.setVisible(false);
+
+    }
+
+    private void refresh() {
+        setVisible(false);
+        setVisible(true);
+
     }
 
     public void prepareActions() {
@@ -158,6 +173,7 @@ public class DamasGUI extends JFrame{
         prepareActionsGameSelect();
 
     }
+
     /**
      * Metodo que prepara las acciones del menu principal
      */
@@ -168,7 +184,7 @@ public class DamasGUI extends JFrame{
         quit.addActionListener(e -> salida());
     }
 
-    public void prepareActionsGameSelect(){
+    public void prepareActionsGameSelect() {
         normal.addActionListener(e -> prepareElementsBoard());
         gottagofast.addActionListener(e -> prepareElementsBoard());
     }
@@ -176,15 +192,15 @@ public class DamasGUI extends JFrame{
     /**
      * Metodo que prepara las acciones de la configuracion
      */
-    private void prepareActionsConfiguration(){
-
+    private void prepareActionsConfiguration() {
 
     }
+
     private void salida() {
-        if (JOptionPane.showConfirmDialog(rootPane, "Seguro que quiere salir", "Salir del sistema", JOptionPane.YES_NO_OPTION
-        ) == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(rootPane, "Seguro que quiere salir", "Salir del sistema",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
-        }else {
+        } else {
             setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         }
     }
