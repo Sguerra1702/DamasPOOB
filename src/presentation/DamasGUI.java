@@ -143,6 +143,7 @@ public class DamasGUI extends JFrame {
         stats.add(fichasCap);
         midPanel.add(stats, BorderLayout.WEST);
         add(midPanel, BorderLayout.WEST);
+        setComponentZOrder(gamePanel, 0);
         delButtons();
         refresh();
 
