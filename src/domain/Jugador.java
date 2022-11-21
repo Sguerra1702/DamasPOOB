@@ -1,5 +1,7 @@
 package domain;
 
+import java.awt.*;
+
 public abstract class Jugador {
     /**
      * 
@@ -17,5 +19,10 @@ public abstract class Jugador {
      * @return
      */
     public abstract int getFichasNum();
-    
+
+
+    public abstract Color getColor();
+
+
+    public abstract int getPuntaje();
 }

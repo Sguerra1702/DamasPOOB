@@ -1,8 +1,15 @@
 package domain;
 
+import java.util.ArrayList;
+import java.awt.*;
 public class Maquina extends Jugador{
-
-    public void makeAMove(){
+    private String name;
+    private Color color;
+    private ArrayList<Ficha> fichas;
+    private int punt;
+    private int turno;
+    private boolean bajando;
+    public void makeAMove(int fx, int fy, int mx, int my)throws DamasException{
 
     }
     public String getName(){
@@ -13,5 +20,13 @@ public class Maquina extends Jugador{
 
         return 0;
     }
+    public Color getColor(){
 
+        return color;
+
+    }
+     public int getPuntaje(){
+
+        return punt;
+     }
 }
