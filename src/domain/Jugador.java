@@ -1,6 +1,7 @@
 package domain;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class Jugador {
     /**
@@ -8,7 +9,7 @@ public abstract class Jugador {
      * realiza un movimiento
      * 
      */
-    public abstract void makeAMove(int fx, int fy, int mx, int my)throws DamasException;
+    public abstract void makeAMove(int fx, int fy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt)throws DamasException;
     /**
      * retorna el nombre del jugador
      * @return

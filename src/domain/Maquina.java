@@ -9,7 +9,7 @@ public class Maquina extends Jugador{
     private int punt;
     private int turno;
     private boolean bajando;
-    public void makeAMove(int fx, int fy, int mx, int my)throws DamasException{
+    public void makeAMove(int fx, int fy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt)throws DamasException{
 
     }
     public String getName(){

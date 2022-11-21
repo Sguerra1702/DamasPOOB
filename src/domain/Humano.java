@@ -34,7 +34,7 @@ public class Humano extends Jugador{
         }
 
     }
-    public void makeAMove(int fx, int fy, int mx, int my) throws DamasException{
+    public void makeAMove(int fx, int fy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) throws DamasException{
         for(Ficha a: fichas){
             if(a.getPos()[0] == fx && a.getPos()[1] == fy){
 
