@@ -46,7 +46,7 @@ public abstract class Ficha {
      * @param x
      * @param y
      */
-    public abstract void setPos(int x, int y);
+    public abstract void setPos(int x, int y) throws DamasException;
     /**
      * 
      * ejecuta la accion de la ficha

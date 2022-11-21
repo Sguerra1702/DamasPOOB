@@ -14,14 +14,25 @@ public class Humano extends Jugador{
 
         this.name=name;
         this.color = color;
-        fichas = new ArrayList<>();
+        fichas = new ArrayList<Ficha>();
         punt = 0;
         turno = i;
+        generateFichas();
         if(turno == 1){
             bajando= true;
         }else{
             bajando= false;
         }
+    }
+    private void generateFichas(){
+        for(int y= 1; y<=2; y++){
+            for(int x= 0; x<=10; x++){
+                int[] pos= {x,y};
+                Normal ficha = new Normal(color, pos);
+                fichas.add(ficha);
+            }
+        }
+
     }
     public void makeAMove(int fx, int fy, int mx, int my) throws DamasException{
         for(Ficha a: fichas){

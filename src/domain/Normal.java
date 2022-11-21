@@ -20,12 +20,20 @@ public class Normal extends Ficha{
     }
 
     public void setColor(Color color) {
+
         super.color = color;
     }
 
-    public void setPos(int x, int y) {
+    public void setPos(int x, int y) throws DamasException{
+        if(x<=20||y<=20){
         pos[0] = x;
         pos[1] = y;
+        }else{
+
+            throw new DamasException("a");
+
+        }
+
         
     }
 
