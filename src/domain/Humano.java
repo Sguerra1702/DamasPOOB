@@ -19,7 +19,8 @@ public class Humano extends Jugador {
         fichas = new ArrayList<Ficha>();
         punt = 0;
         turno = i;
-        generateFichasj1();
+        if(i==1)generateFichasj1();
+        else generateFichasj2();
         if (turno == 1) {
             bajando = true;
         } else {
@@ -46,17 +47,30 @@ public class Humano extends Jugador {
                 fichas.add(ficha1);
                 y=0;
             }
+        }
+        }
 
-        }
-        /*
-        for (int y = 1; y <= 2; y++) {
-            for (int x = 0; x <= 10; x++) {
-                int[] pos = { x, y };
-                Normal ficha = new Normal(color, pos);
-                fichas.add(ficha);
+        private void generateFichasj2() {
+            int y=0;
+            for(int x = 0; x<=9; x++){
+                if(y==1){
+                    int[] pos1 = { x, 0 };
+                    int[] pos2 = { x, 2 };
+                    Normal ficha1 = new Normal(color, pos1);
+                    Normal ficha2 = new Normal(color, pos2);
+                    fichas.add(ficha1);
+                    fichas.add(ficha2);
+                    y+=1;
+    
+                }
+                if(y==0){
+                    int[] pos1 = { x, 1 };
+                    Normal ficha1 = new Normal(color, pos1);
+                    fichas.add(ficha1);
+                    y=0;
+                }
+    
             }
-        }
-        */
     }
 
     /*
