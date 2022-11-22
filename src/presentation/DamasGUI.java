@@ -1,6 +1,8 @@
 package presentation;
 
-
+import java.awt.*;
+import java.net.URL;
+//
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,8 +26,12 @@ public class DamasGUI extends JFrame{
     private Board board;
 
     private MainMenu menuPrincipal;
-    
+
+    private GameSelect menuGameSelect;
+
     private Color color;
+
+    private static DamasGUI nggyu;
 
     public DamasGUI(){
         prepareElements();
@@ -33,18 +39,26 @@ public class DamasGUI extends JFrame{
 
     }
 
-    public static void main(String[] args) {
-        DamasGUI theGame = new DamasGUI();
-        theGame.setVisible(true);
+    public static DamasGUI getGUI(){
+        if(nggyu == null){
+            nggyu = new DamasGUI();
+        }
+        return nggyu;
+    }
 
+    public static void main(String[] args) {
+        nggyu = new DamasGUI();
+        nggyu.setVisible(true);
     }
 
     public void prepareElements(){
         setTitle("DamasPOOB");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width /2, screenSize.height / 2);
+        setSize(screenSize.width, screenSize.height);
         setLocationRelativeTo(null);
         menuPrincipal = new MainMenu();
+        menuGameSelect = new GameSelect();
+        board = new Board();
         prepareElementsMenu();
 
     }
@@ -68,13 +82,29 @@ public class DamasGUI extends JFrame{
         settings.add(tamano);
         settings.add(colorselect);
         setJMenuBar(menuBar);
-        add(menuPrincipal);
+        this.add(menuPrincipal);
 
     }
 
-
     public void prepareElementsGameSelect(){
+        this.remove(menuPrincipal);
+        add(menuGameSelect);
+        validate();
+        repaint();
+    }
 
+    public void prepareElementsBoardNormal(){
+        remove(menuGameSelect);
+        add(board);
+        validate();
+        repaint();
+    }
+
+    public void prepareElementsBoardQuickTime(){
+        remove(menuGameSelect);
+        add(board);
+        validate();
+        repaint();
     }
 
     public void prepareActions() {
@@ -86,8 +116,6 @@ public class DamasGUI extends JFrame{
         });
         prepareActionsMenu();
         prepareActionsConfiguration();
-
-
     }
     /**
      * Metodo que prepara las acciones del menu principal
@@ -113,4 +141,6 @@ public class DamasGUI extends JFrame{
             setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         }
     }
+
+
 }
