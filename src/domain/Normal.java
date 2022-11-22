@@ -25,7 +25,7 @@ public class Normal extends Ficha{
     }
 
     public void setPos(int x, int y) throws DamasException{
-        if(x<=20||y<=20){
+        if(x<=8||y<=8){
         pos[0] = x;
         pos[1] = y;
         }else{

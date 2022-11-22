@@ -20,7 +20,6 @@ public class DamasGUI extends JFrame{
 
     private JMenuItem load, save, start, quit, tamano, colorselect;
 
-
     private Board board;
 
     private MainMenu menuPrincipal;
