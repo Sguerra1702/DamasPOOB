@@ -4,7 +4,12 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 
-public class Board extends JFrame {
+public class Board extends JPanel {
+    private JMenu archivo, settings;
+
+    private JMenuBar menuBar;
+
+    private JMenuItem load, save, start, quit, tamano, colorselect;
     private JPanel menuPrincipal, board;
 
     private JPanel midPanel,titlePanel;
@@ -40,13 +45,13 @@ public class Board extends JFrame {
         textfield = new JLabel();
         textfield.setBackground(Color.white);
         textfield.setForeground(Color.black);
-        textfield.setFont(new Font("Helvetica",Font.BOLD,50));
+        textfield.setFont(new Font("Helvetica",Font.BOLD,20));
         textfield.setHorizontalAlignment(JLabel.CENTER);
         textfield.setText("DAPOOS");
         textfield.setOpaque(true);
         titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
-        titlePanel.setBounds(0,0,getWidth(),60);
+        titlePanel.setBounds(0,0,getWidth(),30);
         titlePanel.add(textfield);
         add(titlePanel,BorderLayout.NORTH);
         buttons = new JButton[10][10];
@@ -56,11 +61,11 @@ public class Board extends JFrame {
         board.setLayout(new GridLayout(10, 10));
         for(int i=0;i<(10);i++) {
             for (int j = 0; j < (10); j++) {
-                if(i %2 != 0 || j%2!=0){
-                    colorFicha = Color.WHITE;
+                if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
+                    colorFicha = Color.BLACK;
                 }
                 else{
-                    colorFicha = Color.BLACK;
+                    colorFicha = Color.WHITE;
                 }
                 buttons[i][j] = new JButton();
                 board.add(buttons[i][j]);

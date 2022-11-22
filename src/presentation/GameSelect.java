@@ -2,13 +2,14 @@ package presentation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class GameSelect extends JPanel {
-    private final JPanel mainPanel;
+
 
     private Board board;
 
-    private JPanel gameModeSelectionPanel;
+    Image image;
 
     private JMenu archivo, settings;
 
@@ -19,16 +20,15 @@ public class GameSelect extends JPanel {
     private JButton normal, gottagofast, exit;
 
     public GameSelect(){
-        mainPanel = new JPanel();
         prepareElements();
     }
 
     public void prepareElements(){
-        mainPanel.setLayout(new GridLayout(10,1,1,10));
-        mainPanel.setBackground(Color.black);
-        mainPanel.setBorder(BorderFactory.createMatteBorder(4,4,4,4,Color.black));
+        setBackground(Color.black);
+        setOpaque(false);
         prepareElementsGameSelect();
         prepareActionsGameSelect();
+        image = loadImage("https://www.gifcen.com/wp-content/uploads/2022/01/wallpaper-gif-9.gif");
     }
 
     public void prepareActionsGameSelect() {
@@ -38,23 +38,25 @@ public class GameSelect extends JPanel {
     }
 
     public void prepareElementsGameSelect() {
-        gameModeSelectionPanel = new JPanel();
-        add(gameModeSelectionPanel);
-        gameModeSelectionPanel.setLayout(new GridLayout(10, 1, 1, 10));
+        JPanel gameModeSelectionPanel = new JPanel();
+        gameModeSelectionPanel.setOpaque(false);
+        gameModeSelectionPanel.setLayout(new GridLayout(4,1,200,80));
+        JPanel vacio = new JPanel();
+        vacio.setVisible(false);
         normal = new JButton("Partida Normal");
-        gameModeSelectionPanel.add(normal);
         gottagofast = new JButton("Partida QuickTime");
-        gameModeSelectionPanel.add(gottagofast);
         exit = new JButton("Salir");
+        gameModeSelectionPanel.add(vacio);
+        gameModeSelectionPanel.add(normal);
+        gameModeSelectionPanel.add(gottagofast);
         gameModeSelectionPanel.add(exit);
         add(gameModeSelectionPanel);
+        setVisible(true);
+
     }
 
     public void prepareElementsBoardNormal(){
-        setVisible(false);
-        board = new Board();
-        board.prepareElements();
-        board.setVisible(true);
+        DamasGUI.getGUI().prepareElementsBoardNormal();
     }
 
     public void prepareElementsBoardQuicktime(){
@@ -70,6 +72,25 @@ public class GameSelect extends JPanel {
         if (valor == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
+    }
+    private Image loadImage(String url){
+        try{
+            getToolkit();
+            final Image img = Toolkit.getDefaultToolkit().createImage(new URL(url));
+            getToolkit();
+            Toolkit.getDefaultToolkit().prepareImage(img, -1, -1, null);
+            return img;
+        }
+        catch(Exception e){
+            return null;
+        }
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this);
     }
 
 }

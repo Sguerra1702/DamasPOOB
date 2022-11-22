@@ -2,53 +2,61 @@ package presentation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.net.URL;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class MainMenu extends JPanel {
 
-    private final JPanel mainPanel;
+    //private final JPanel mainPanel;
+
+    private JPanel titlePanel;
 
     private JButton solo, vsButton, exit;
 
-    private GameSelect gameSelectWindow;
+    Image image;
+    private JLabel textfield;
 
     public MainMenu() {
-        mainPanel = new JPanel();
         prepareElements();
     }
 
     public void prepareElements() {
-        mainPanel.setLayout(new GridLayout(10, 1, 1, 10));
-        mainPanel.setBackground(Color.white);
-        mainPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.black));
+        this.setBackground(Color.white);
         prepareElementsMenu();
-        prepareActionsMenu();
+        image = loadImage("fondo.jpg");
     }
 
     public void prepareElementsMenu() {
-        //mainPanel botones
-        add(mainPanel);
-        mainPanel.setLayout(new GridLayout(10, 1, 1, 10));
+        GridLayout orden = new GridLayout(4, 1, 70, 80);
+        textfield = new JLabel();
+        textfield.setFont(new Font("Helvetica",Font.BOLD,69));
+        textfield.setText("DAPOOS");
+        textfield.setHorizontalAlignment(JLabel.CENTER);
+        JPanel menuBotones = new JPanel();
+        menuBotones.setBackground(Color.white);
+        menuBotones.setLayout(orden);
         solo = new JButton("Un jugador");
-        mainPanel.add(solo);
+        menuBotones.add(textfield);
+        menuBotones.add(solo);
         vsButton = new JButton("Dos Jugadores");
         exit = new JButton("Salir");
-        mainPanel.add(vsButton);
-        mainPanel.add(exit);
+        menuBotones.add(vsButton);
+        menuBotones.add(exit);
+        menuBotones.setOpaque(false);
+        this.add(menuBotones);
     }
 
     public void prepareActionsMenu() {
-        solo.addActionListener(e -> prepareElementsGameSelect());
-        vsButton.addActionListener(e -> prepareElementsGameSelect());
+        solo.addActionListener(e -> preareElementsGameSelect());
+        vsButton.addActionListener(e -> DamasGUI.getGUI().prepareElementsGameSelect());
         exit.addActionListener(e -> confirmateClose());
     }
 
-    public void prepareElementsGameSelect(){
-        mainPanel.setVisible(false);
-        gameSelectWindow = new GameSelect();
-        gameSelectWindow.setVisible(true);
-        add(gameSelectWindow);
+    public void preareElementsGameSelect(){
+        DamasGUI.getGUI().prepareElementsGameSelect();
     }
+
 
     private void confirmateClose() {
         int valor = JOptionPane.showConfirmDialog(this, "Desea cerrar la aplicacion?", "Advertencia",
@@ -57,5 +65,26 @@ public class MainMenu extends JPanel {
             System.exit(0);
         }
     }
+
+    private Image loadImage(String url){
+        try{
+            getToolkit();
+            final Image img = Toolkit.getDefaultToolkit().createImage("fondo");
+            getToolkit();
+            Toolkit.getDefaultToolkit().prepareImage(img, -1, -1, null);
+            return img;
+        }
+        catch(Exception e){
+            return null;
+        }
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this);
+    }
+
 
 }
