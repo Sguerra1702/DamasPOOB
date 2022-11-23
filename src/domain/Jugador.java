@@ -26,7 +26,11 @@ public abstract class Jugador {
      */
     public abstract int getFichasNum();
 
+    public abstract Ficha getFicha(int posx, int posy);
+
     public abstract Color getColor();
 
     public abstract int getPuntaje();
+
+    public abstract int getTurn();
 }

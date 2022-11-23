@@ -17,7 +17,7 @@ public class Maquina extends Jugador {
 
     public String getName() {
 
-        return "a";
+        return "Maquina";
     }
 
     public int getFichasNum() {
@@ -35,4 +35,22 @@ public class Maquina extends Jugador {
 
         return punt;
     }
+
+    public int getTurn() {
+
+        return turno;
+
+    }
+
+    public ArrayList<Ficha> getFichas() {
+
+        return fichas;
+
+    }
+
+    public Ficha getFicha(int posx, int posy) {
+
+        return null;
+    }
+
 }
