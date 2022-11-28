@@ -27,6 +27,8 @@ public abstract class Jugador {
     public abstract int getFichasNum();
 
     public abstract Ficha getFicha(int posx, int posy);
+    
+    public abstract ArrayList<Ficha> getFichas();
 
     public abstract Color getColor();
 

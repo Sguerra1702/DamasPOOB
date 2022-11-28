@@ -11,7 +11,14 @@ public class Humano extends Jugador {
     private int punt;
     private int turno;
     private boolean bajando;
-
+    /**
+     * 
+     * constructor de la clase humano
+     * 
+     * @param name  String
+     * @param color  Color
+     * @param i     int
+     */
     public Humano(String name, Color color, int i) {
 
         this.name = name;
@@ -30,6 +37,128 @@ public class Humano extends Jugador {
         }
     }
 
+    /*
+     * 
+     * realiza una juagada, retorna true si se consume alguna ficha
+     * 
+     * @Param fx    int
+     * 
+     * @Param fy    int
+     * 
+     * @Param mx    int
+     * 
+     * @Param my    int
+     * 
+     * @Param fichasJugadorAlt  ArrayList<Ficha>
+     * 
+     */
+    public boolean makeAMove(int fx, int fy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
+        boolean res = false;
+        for (Ficha a : fichas) {
+            if (a.getPos()[0] == fx && a.getPos()[1] == fy) {
+                int movx = fx - mx;
+                int movy = fy - my;
+                if (my < 0 && bajando || my > 0 && !bajando) {
+                    a.setPos(movx + a.getPos()[0], movy + a.getPos()[1]);
+                    if (doesEat(movx + a.getPos()[0], movy + a.getPos()[1], mx, my, fichasJugadorAlt)) {
+                        res = true;
+                    }
+                } else {
+                    throw new DamasException(DamasException.NO_PUEDE_MOVER);
+                }
+            } else {
+
+                throw new DamasException(DamasException.FICHA_NO_EXISTE);
+            }
+        }
+        return res;
+    }
+
+    /**
+     * una ficha es comida
+     * 
+     * @param mx
+     * @param my
+     */
+    public void getEaten(int mx, int my) {
+
+        for (int i = 0; i < fichas.size(); i++) {
+
+            if (fichas.get(i).getPos()[0] == mx && fichas.get(i).getPos()[1] == my) {
+
+                fichas.remove(i);
+
+            }
+
+        }
+
+    }
+    /*
+     * retorna el nombre del jugador
+     */
+    public String getName() {
+
+        return name;
+    }
+    /*
+     * retorna el numero de fichas
+     */
+    public int getFichasNum() {
+
+        return fichas.size();
+    }
+    /*
+     * retorna el color del jugador
+     */
+    public Color getColor() {
+
+        return color;
+
+    }
+    /*
+     * retorna el puntaje del jugador
+     */
+    public int getPuntaje() {
+
+        return punt;
+    }
+    /*
+     * retorna el turno del jugador
+     */
+    public int getTurn() {
+
+        return turno;
+    }
+    /*
+
+     * retorna las fichas del jugador
+     */
+    public ArrayList<Ficha> getFichas(){
+    
+        return fichas;
+
+    }
+    /*
+     * retorna la ficha del jugador
+     *
+     * @Param posx  int
+     * @Param posy  int
+     */
+    public Ficha getFicha(int posx, int posy) {
+        int[] pos = { posx, posy };
+        Ficha ficha = null;
+        for (Ficha a : fichas) {
+            if (a.getPos() == pos) {
+
+                ficha = a;
+
+            }
+        }
+        return ficha;
+    }
+
+
+    // METODOS PRIVADOS
     private void generateFichasj1() {
         int y = 0;
         for (int x = 0; x <= 9; x++) {
@@ -50,6 +179,17 @@ public class Humano extends Jugador {
                 y = 0;
             }
         }
+    }
+
+    private boolean doesEat(int movx, int movy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) {
+        boolean res = false;
+        for (Ficha a : fichasJugadorAlt) {
+            if (a.getPos()[0] == movx && a.getPos()[1] == movy) {
+                punt += 10;
+                res = true;
+            }
+        }
+        return res;
     }
 
     private void generateFichasj2() {
@@ -73,107 +213,5 @@ public class Humano extends Jugador {
             }
 
         }
-    }
-
-    /*
-     * 
-     * realiza una juagada, retorna true si se consume alguna ficha
-     * 
-     * @Param fx
-     * 
-     * @Param fy
-     * 
-     * @Param mx
-     * 
-     * @Param my
-     * 
-     * @Param fichasJugadorAlt
-     * 
-     */
-    public boolean makeAMove(int fx, int fy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
-        boolean res = false;
-        for (Ficha a : fichas) {
-            if (a.getPos()[0] == fx && a.getPos()[1] == fy) {
-                int movx = fx - mx;
-                int movy = fy - my;
-                if (my < 0 && bajando || my > 0 && !bajando) {
-                    a.setPos(movx + a.getPos()[0], movy + a.getPos()[1]);
-                    if (doesEat(movx + a.getPos()[0], movy + a.getPos()[1], mx, my, fichasJugadorAlt)) {
-                        res = true;
-                    }
-                } else {
-
-                    throw new DamasException(DamasException.NO_PUEDE_MOVER);
-                }
-            } else {
-
-                throw new DamasException(DamasException.NO_PUEDE_MOVER);
-            }
-        }
-        return res;
-    }
-
-    private boolean doesEat(int movx, int movy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) {
-        boolean res = false;
-        for (Ficha a : fichasJugadorAlt) {
-            if (a.getPos()[0] == movx && a.getPos()[1] == movy) {
-                punt += 10;
-                res = true;
-            }
-        }
-        return res;
-    }
-
-    public void getEaten(int mx, int my) {
-
-        for (int i = 0; i < fichas.size(); i++) {
-
-            if (fichas.get(i).getPos()[0] == mx && fichas.get(i).getPos()[1] == my) {
-
-                fichas.remove(i);
-
-            }
-
-        }
-
-    }
-
-    public String getName() {
-
-        return name;
-    }
-
-    public int getFichasNum() {
-
-        return fichas.size();
-    }
-
-    public Color getColor() {
-
-        return color;
-
-    }
-
-    public int getPuntaje() {
-
-        return punt;
-    }
-
-    public int getTurn() {
-
-        return turno;
-    }
-
-    public Ficha getFicha(int posx, int posy) {
-        int[] pos = { posx, posy };
-        Ficha ficha = null;
-        for (Ficha a : fichas) {
-            if (a.getPos() == pos) {
-
-                ficha = a;
-
-            }
-        }
-        return ficha;
     }
 }

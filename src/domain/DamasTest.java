@@ -35,13 +35,13 @@ public class DamasTest {
     }
 
     @Test 
-    public void shouldGenerate20(){
+    public void shouldGenerate10(){
 
-        if(jugador1.getFichasNum()==22) assertTrue(true);
+    if(jugador1.getFichasNum()==10) assertTrue(true);
         else assertFalse(Integer.toString(jugador1.getFichasNum()), true);
     }
     @Test
-    public void shouldMove(){
+    public void shouldTeleport(){
         try{
         ficha1.setPos(4, 16);
         assertTrue(true);
@@ -51,5 +51,43 @@ public class DamasTest {
         }
     }
 
+    @Test 
+    public void shouldCreateFichas(){
+        if (jugador1.getFichas().get(0).getPos()== pos1){
+            assertTrue(true);
+
+        }else{
+            assertFalse(Integer.toString(jugador1.getFichas().get(0).getPos()[0]) +"-" + Integer.toString(jugador1.getFichas().get(0).getPos()[1]),true);
+
+        }
+
+
+    }
+
+
+    @Test
+    public void shouldMove(){
+        try{
+        jugador1.makeAMove(25, 35, 24, 36, jugadores.get(1).getFichas());
+        int[] xd = jugador1.getFicha(25,35).getPos();
+        assertTrue(Integer.toString(xd[0]) +"-" + Integer.toString(xd[1]), true);
+        }catch(DamasException e){
+            int[] xd = jugador1.getFicha(25,35).getPos();
+            fail(Integer.toString(xd[0]) +"-" + Integer.toString(xd[1]) +"-"+ e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldPlayFirstTurn(){
+        try{
+            Jugador j1= jugadores.get(0);
+            j1.makeAMove(25, 35, 26, 36, jugadores.get(1).getFichas());
+            int[] xd = j1.getFichas().get(0).getPos();
+            assertTrue(Integer.toString(xd[0]) +"-" + Integer.toString(xd[1]), false);
+        }catch(DamasException e){
+
+            assertFalse(e.getMessage(), true);
+        }
+    }
 
 }

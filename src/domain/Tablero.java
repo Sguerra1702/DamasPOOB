@@ -8,14 +8,30 @@ public class Tablero {
 
     private HashMap<String, Jugador> jugadores;
     private int turno;
-
-    public Tablero(int cantidad_jugadores) {
+/**
+ * contructor de la clase tablero, su input es determinado en (cantidad_jugadores <= 2), de lo contrario lanzara una excepcion
+ * 
+ * 
+ * @param cantidad_jugadores
+ * @throws DamasException
+ */
+    public Tablero(int cantidad_jugadores) throws DamasException {
         jugadores = new HashMap<String, Jugador>();
         if (cantidad_jugadores > 1) {
             jugadores.put("Maquina", new Maquina());
         }
+        if(cantidad_jugadores>2){
+            throw new DamasException(DamasException.NO_MAS_JUGADORES);
+        }
     }
-
+    /**
+     * agrega un jugador por cada llamada al metodo
+     * 
+     * @param name
+     * @param color
+     * @param turno
+     * @throws DamasException
+     */
     public void addJugador(String name, Color color, int turno) throws DamasException {
 
         if (jugadores.size() < 2) {
@@ -42,8 +58,6 @@ public class Tablero {
      * @throws DamasException
      */
     public void makeAMove(int fx, int fy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
-        String nameJ;
-        int[] pos = { fx, fy };
         Ficha ficha = null;
         for (Jugador dato : jugadores.values()) {
             ficha = dato.getFicha(fx, fy);
@@ -59,9 +73,16 @@ public class Tablero {
 
             }
         }
-
+        if(turno == 1){
+            turno = 0;
+        }
+        turno +=1;
     }
 
+
+
+    
+    // METODOS PRIVADOS
     private boolean jugadorEnTurno(int i) throws DamasException {
         if (turno == i) {
             return true;
