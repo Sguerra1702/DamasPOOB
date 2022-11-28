@@ -60,7 +60,7 @@ public class Humano extends Jugador {
                 int movy = fy - my;
                 if (my < 0 && bajando || my > 0 && !bajando) {
                     a.setPos(movx + a.getPos()[0], movy + a.getPos()[1]);
-                    if (doesEat(movx + a.getPos()[0], movy + a.getPos()[1], mx, my, fichasJugadorAlt)) {
+                    if (doesEat(movx + a.getPos()[0], movy + a.getPos()[1], mx, my, fichasJugadorAlt) && friendlyFire(mx, my)) {
                         res = true;
                     }
                 } else {
@@ -159,6 +159,16 @@ public class Humano extends Jugador {
 
 
     // METODOS PRIVADOS
+
+    private boolean friendlyFire(int mx, int my){
+        boolean res = true;
+        if (getFicha(mx,my)!= null){
+
+            res = false;
+        }
+        return res;
+    }
+
     private void generateFichasj1() {
         int y = 0;
         for (int x = 0; x <= 9; x++) {
