@@ -27,30 +27,27 @@ public class Humano extends Jugador {
         fichas = new ArrayList<Ficha>();
         punt = 0;
         turno = i;
+
         if (i == 1)
             generateFichasj1();
         else
             generateFichasj2();
-        if (turno == 1) {
-            bajando = true;
-        } else {
-            bajando = false;
-        }
+
     }
 
     /*
      * 
      * realiza una juagada, retorna true si se consume alguna ficha
      * 
-     * @Param fx
+     * @param fx int
      * 
-     * @Param fy
+     * @param fy int
      * 
-     * @Param mx
+     * @param mx int
      * 
-     * @Param my
+     * @param my int
      * 
-     * @Param fichasJugadorAlt
+     * @param fichasJugadorAlt ArrayList
      * 
      */
     public boolean makeAMove(int fx, int fy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
@@ -71,7 +68,7 @@ public class Humano extends Jugador {
                 }
             } else {
 
-                throw new DamasException(DamasException.NO_PUEDE_MOVER);
+                throw new DamasException(DamasException.FICHA_NO_EXISTE);
             }
         }
         return res;
@@ -150,9 +147,9 @@ public class Humano extends Jugador {
     /*
      * retorna la ficha del jugador
      *
-     * @Param posx int
+     * @param posx int
      * 
-     * @Param posy int
+     * @param posy int
      */
     public Ficha getFicha(int posx, int posy) {
         int[] pos = { posx, posy };
