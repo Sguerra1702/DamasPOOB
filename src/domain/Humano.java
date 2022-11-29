@@ -10,7 +10,6 @@ public class Humano extends Jugador {
     private ArrayList<Ficha> fichas;
     private int punt;
     private int turno;
-    private boolean bajando;
 
     /**
      * 
@@ -56,7 +55,7 @@ public class Humano extends Jugador {
             if (a.getPos()[0] == fx && a.getPos()[1] == fy) {
                 int movx = fx - mx;
                 int movy = fy - my;
-                if (my < 0 && bajando || my > 0 && !bajando) {
+                if (my < 0 && getFicha(fx, fy).bajando() || my > 0 && !getFicha(fx, fy).bajando()) {
                     a.setPos(movx + a.getPos()[0], movy + a.getPos()[1]);
                     if (doesEat(movx + a.getPos()[0], movy + a.getPos()[1], mx, my, fichasJugadorAlt)
                             && friendlyFire(mx, my)) {
@@ -74,12 +73,6 @@ public class Humano extends Jugador {
         return res;
     }
 
-    /**
-     * una ficha es comida
-     * 
-     * @param mx
-     * @param my
-     */
     public void getEaten(int mx, int my) {
 
         for (int i = 0; i < fichas.size(); i++) {

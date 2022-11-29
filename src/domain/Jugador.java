@@ -7,7 +7,7 @@ public abstract class Jugador {
 
     /*
      * 
-     * realiza una juagada, retorna true si se consume alguna ficha
+     * realiza una jugada, retorna true si se consume alguna ficha
      * 
      * @param fx int
      * 
@@ -65,4 +65,12 @@ public abstract class Jugador {
      * retorna el turno del jugador
      */
     public abstract int getTurn();
+
+    /**
+     * come una ficha
+     * 
+     * @param mx
+     * @param my
+     */
+    public abstract void getEaten(int mx, int my);
 }
