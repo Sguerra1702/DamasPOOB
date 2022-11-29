@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.awt.*;
 
 public class Maquina extends Jugador {
-    private String name;
     private Color color;
     private ArrayList<Ficha> fichas;
     private int punt;

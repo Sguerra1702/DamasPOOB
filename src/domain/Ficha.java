@@ -1,22 +1,27 @@
 package domain;
+
 import java.awt.*;
+
 public abstract class Ficha {
     protected int pos[];
     protected Color color;
     protected int lives;
+    protected boolean bajando;
+
     /**
      *
-     * Constructor de la clase Ficha 
+     * Constructor de la clase Ficha
      * 
      * @param color color
-     * @param pos   pos 
+     * @param pos   pos
      */
-    public Ficha(Color color, int[] pos){
+    public Ficha(Color color, int[] pos, boolean bajando) {
 
         this.pos = pos;
         this.color = color;
-        lives += 1; 
-        
+        lives += 1;
+        this.bajando = bajando;
+
     }
 
     /**
@@ -39,6 +44,7 @@ public abstract class Ficha {
      * @param color
      */
     public abstract void setColor(Color color);
+
     /**
      * 
      * coloca una nueva posicion de la dama
@@ -47,6 +53,7 @@ public abstract class Ficha {
      * @param y
      */
     public abstract void setPos(int x, int y) throws DamasException;
+
     /**
      * 
      * ejecuta la accion de la ficha
