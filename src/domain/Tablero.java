@@ -7,6 +7,7 @@ import java.awt.*;
 public class Tablero {
 
     private HashMap<String, Jugador> jugadores;
+    private ArrayList<Casilla> casillas;
     private int turno;
 
     /**
