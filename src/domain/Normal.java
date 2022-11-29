@@ -46,4 +46,9 @@ public class Normal extends Ficha {
 
         lives = 1;
     }
+
+    public boolean bajando() {
+        return bajando;
+
+    }
 }

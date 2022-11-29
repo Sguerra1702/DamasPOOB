@@ -12,8 +12,9 @@ public abstract class Ficha {
      *
      * Constructor de la clase Ficha
      * 
-     * @param color color
-     * @param pos   pos
+     * @param color   color
+     * @param pos     pos
+     * @param bajando boolean
      */
     public Ficha(Color color, int[] pos, boolean bajando) {
 
@@ -27,21 +28,21 @@ public abstract class Ficha {
     /**
      * Retorna el color de la ficha
      * 
-     * @return
+     * @return Color
      */
     public abstract Color getColor();
 
     /**
      * retorna las posiciones
      * 
-     * @return
+     * @return int[]
      */
     public abstract int[] getPos();
 
     /**
      * define el color de la ficha
      * 
-     * @param color
+     * @param color Color
      */
     public abstract void setColor(Color color);
 
@@ -49,8 +50,8 @@ public abstract class Ficha {
      * 
      * coloca una nueva posicion de la dama
      * 
-     * @param x
-     * @param y
+     * @param x int
+     * @param y int
      */
     public abstract void setPos(int x, int y) throws DamasException;
 
@@ -60,4 +61,6 @@ public abstract class Ficha {
      * 
      */
     public abstract void action();
+
+    public abstract boolean bajando();
 }
