@@ -77,6 +77,7 @@ public class DamasTest {
         }
     }
 
+    
     @Test
     public void shouldPlayFirstTurn(){
         try{

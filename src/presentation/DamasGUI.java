@@ -66,7 +66,7 @@ public class DamasGUI extends JFrame{
         menuBar = new JMenuBar();
         archivo = new JMenu("Archivo");
         menuBar.add(archivo);
-        settings = new JMenu("Configuración");
+        settings = new JMenu("Configuración");  
         menuBar.add(settings);
         start = new JMenuItem("Nuevo");
         save = new JMenuItem("Salvar");
