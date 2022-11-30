@@ -117,4 +117,19 @@ public class Tablero {
         return name;
     }
 
+    public ArrayList<Ficha> getAllFichas() {
+        ArrayList<ArrayList<Ficha>> fichas = new ArrayList<ArrayList<Ficha>>();
+        ArrayList<Ficha> res = new ArrayList<Ficha>();
+        for (Jugador dato : jugadores.values()) {
+            fichas.add(dato.getFichas());
+        }
+        for (ArrayList<Ficha> ficha : fichas) {
+            for (Ficha xd : ficha) {
+                res.add(xd);
+            }
+
+        }
+        return res;
+
+    }
 }
