@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.awt.*;
 
 public class Maquina extends Jugador {
-    private String name;
     private Color color;
     private ArrayList<Ficha> fichas;
     private int punt;
     private int turno;
-    private boolean bajando;
 
     public boolean makeAMove(int fx, int fy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
         return true;
@@ -53,4 +51,17 @@ public class Maquina extends Jugador {
         return null;
     }
 
+    public void getEaten(int mx, int my) {
+
+        for (int i = 0; i < fichas.size(); i++) {
+
+            if (fichas.get(i).getPos()[0] == mx && fichas.get(i).getPos()[1] == my) {
+
+                fichas.remove(i);
+
+            }
+
+        }
+
+    }
 }

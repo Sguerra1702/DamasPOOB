@@ -2,9 +2,9 @@ package domain;
 
 import java.awt.*;
 
-public class Normal extends Ficha {
+public class Reina extends Ficha {
 
-    public Normal(Color color, int[] pos, boolean bajando) {
+    public Reina(Color color, int[] pos, boolean bajando) {
 
         super(color, pos, bajando);
 

@@ -2,9 +2,8 @@ package domain;
 
 import java.awt.*;
 
-public class Normal extends Ficha {
-
-    public Normal(Color color, int[] pos, boolean bajando) {
+public class Zombie extends Ficha {
+    public Zombie(Color color, int[] pos, boolean bajando) {
 
         super(color, pos, bajando);
 

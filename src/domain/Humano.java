@@ -10,13 +10,13 @@ public class Humano extends Jugador {
     private ArrayList<Ficha> fichas;
     private int punt;
     private int turno;
-    private boolean bajando;
+
     /**
      * 
      * constructor de la clase humano
      * 
      * @param name  String
-     * @param color  Color
+     * @param color Color
      * @param i     int
      */
     public Humano(String name, Color color, int i) {
@@ -26,30 +26,27 @@ public class Humano extends Jugador {
         fichas = new ArrayList<Ficha>();
         punt = 0;
         turno = i;
+
         if (i == 1)
             generateFichasj1();
         else
             generateFichasj2();
-        if (turno == 1) {
-            bajando = true;
-        } else {
-            bajando = false;
-        }
+
     }
 
     /*
      * 
      * realiza una juagada, retorna true si se consume alguna ficha
      * 
-     * @Param fx    int
+     * @param fx int
      * 
-     * @Param fy    int
+     * @param fy int
      * 
-     * @Param mx    int
+     * @param mx int
      * 
-     * @Param my    int
+     * @param my int
      * 
-     * @Param fichasJugadorAlt  ArrayList<Ficha>
+     * @param fichasJugadorAlt ArrayList
      * 
      */
     public boolean makeAMove(int fx, int fy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
@@ -58,12 +55,14 @@ public class Humano extends Jugador {
             if (a.getPos()[0] == fx && a.getPos()[1] == fy) {
                 int movx = fx - mx;
                 int movy = fy - my;
-                if (my < 0 && bajando || my > 0 && !bajando) {
+                if (my < 0 && getFicha(fx, fy).bajando() || my > 0 && !getFicha(fx, fy).bajando()) {
                     a.setPos(movx + a.getPos()[0], movy + a.getPos()[1]);
-                    if (doesEat(movx + a.getPos()[0], movy + a.getPos()[1], mx, my, fichasJugadorAlt) && friendlyFire(mx, my)) {
+                    if (doesEat(movx + a.getPos()[0], movy + a.getPos()[1], mx, my, fichasJugadorAlt)
+                            && friendlyFire(mx, my)) {
                         res = true;
                     }
                 } else {
+
                     throw new DamasException(DamasException.NO_PUEDE_MOVER);
                 }
             } else {
@@ -74,12 +73,6 @@ public class Humano extends Jugador {
         return res;
     }
 
-    /**
-     * una ficha es comida
-     * 
-     * @param mx
-     * @param my
-     */
     public void getEaten(int mx, int my) {
 
         for (int i = 0; i < fichas.size(); i++) {
@@ -93,6 +86,7 @@ public class Humano extends Jugador {
         }
 
     }
+
     /*
      * retorna el nombre del jugador
      */
@@ -100,6 +94,7 @@ public class Humano extends Jugador {
 
         return name;
     }
+
     /*
      * retorna el numero de fichas
      */
@@ -107,6 +102,7 @@ public class Humano extends Jugador {
 
         return fichas.size();
     }
+
     /*
      * retorna el color del jugador
      */
@@ -115,6 +111,7 @@ public class Humano extends Jugador {
         return color;
 
     }
+
     /*
      * retorna el puntaje del jugador
      */
@@ -122,6 +119,7 @@ public class Humano extends Jugador {
 
         return punt;
     }
+
     /*
      * retorna el turno del jugador
      */
@@ -129,20 +127,22 @@ public class Humano extends Jugador {
 
         return turno;
     }
-    /*
 
+    /*
+     * 
      * retorna las fichas del jugador
      */
-    public ArrayList<Ficha> getFichas(){
-    
+    public ArrayList<Ficha> getFichas() {
         return fichas;
 
     }
+
     /*
      * retorna la ficha del jugador
      *
-     * @Param posx  int
-     * @Param posy  int
+     * @param posx int
+     * 
+     * @param posy int
      */
     public Ficha getFicha(int posx, int posy) {
         int[] pos = { posx, posy };
@@ -157,12 +157,11 @@ public class Humano extends Jugador {
         return ficha;
     }
 
-
     // METODOS PRIVADOS
 
-    private boolean friendlyFire(int mx, int my){
+    private boolean friendlyFire(int mx, int my) {
         boolean res = true;
-        if (getFicha(mx,my)!= null){
+        if (getFicha(mx, my) != null) {
 
             res = false;
         }
@@ -175,8 +174,8 @@ public class Humano extends Jugador {
             if (y == 0) {
                 int[] pos1 = { x, 0 };
                 int[] pos2 = { x, 2 };
-                Normal ficha1 = new Normal(color, pos1);
-                Normal ficha2 = new Normal(color, pos2);
+                Normal ficha1 = new Normal(color, pos1, true);
+                Normal ficha2 = new Normal(color, pos2, true);
                 fichas.add(ficha1);
                 fichas.add(ficha2);
                 y += 1;
@@ -184,7 +183,7 @@ public class Humano extends Jugador {
             }
             if (y == 1) {
                 int[] pos1 = { x, 1 };
-                Normal ficha1 = new Normal(color, pos1);
+                Normal ficha1 = new Normal(color, pos1, true);
                 fichas.add(ficha1);
                 y = 0;
             }
@@ -208,8 +207,8 @@ public class Humano extends Jugador {
             if (y == 1) {
                 int[] pos1 = { x, 0 };
                 int[] pos2 = { x, 2 };
-                Normal ficha1 = new Normal(color, pos1);
-                Normal ficha2 = new Normal(color, pos2);
+                Normal ficha1 = new Normal(color, pos1, false);
+                Normal ficha2 = new Normal(color, pos2, false);
                 fichas.add(ficha1);
                 fichas.add(ficha2);
                 y += 1;
@@ -217,7 +216,7 @@ public class Humano extends Jugador {
             }
             if (y == 0) {
                 int[] pos1 = { x, 1 };
-                Normal ficha1 = new Normal(color, pos1);
+                Normal ficha1 = new Normal(color, pos1, false);
                 fichas.add(ficha1);
                 y = 0;
             }

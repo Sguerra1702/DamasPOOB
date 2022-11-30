@@ -2,11 +2,12 @@ package domain;
 
 import java.awt.*;
 
-public class Normal extends Ficha {
+public class Ninja extends Ficha {
 
-    public Normal(Color color, int[] pos, boolean bajando) {
+    public Ninja(Color color, int[] pos, boolean bajando) {
 
         super(color, pos, bajando);
+        lives += 1;
 
     }
 
