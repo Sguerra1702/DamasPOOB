@@ -3,14 +3,13 @@ package presentation;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
+import domain.*;
 
 public class Board extends JPanel {
-    private JMenu archivo, settings;
 
-    private JMenuBar menuBar;
+    private JButton salir, backMainMenu;
 
-    private JMenuItem load, save, start, quit, tamano, colorselect;
-    private JPanel menuPrincipal, board;
+    private JPanel board;
 
     private JPanel midPanel,titlePanel;
 
@@ -20,18 +19,25 @@ public class Board extends JPanel {
 
     private Color colorFicha;
 
-    private JButton[][] buttons;
+    private JPanel[][] casillas;
+
+    private JButton[][] botones;
 
     private JLabel  textfield;
-
+    /**
+     * Constructor de la clase Board
+     */
     public Board(){
         this.size = 10;
-        buttons = new JButton[size][size];
+        casillas = new JPanel[size][size];
+        botones = new JButton[10][10];
         board = new JPanel();
-        menuPrincipal = new JPanel();
         prepareElements();
     }
 
+    /**
+     * Define los parámetros del tamaño del tablero, 
+     */
     public void prepareElements(){
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(screenSize.width, screenSize.height);
@@ -39,6 +45,7 @@ public class Board extends JPanel {
         this.setBackground(colorFondo);
         board.setBorder(BorderFactory.createMatteBorder(4,4,4,4,Color.black));
         prepareElementsBoard();
+        prepareActionsBoard();
     }
 
     public void prepareElementsBoard(){
@@ -54,23 +61,36 @@ public class Board extends JPanel {
         titlePanel.setBounds(0,0,getWidth(),30);
         titlePanel.add(textfield);
         add(titlePanel,BorderLayout.NORTH);
-        buttons = new JButton[10][10];
-        Border blackline = BorderFactory.createLineBorder(Color.black);
         board = new JPanel();
         board.setBorder(new CompoundBorder(new EmptyBorder(3, 3, 3, 3), new TitledBorder("Board DaPOOs")));
         board.setLayout(new GridLayout(10, 10));
         for(int i=0;i<(10);i++) {
             for (int j = 0; j < (10); j++) {
+                casillas[i][j] = new JPanel();
+                board.add(casillas[i][j]);
                 if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
-                    colorFicha = Color.BLACK;
+                    casillas[i][j].setBackground(Color.BLACK);
+                    if(i<3){
+                        botones[i][j] = new Ficha();
+                        botones[i][j].setBackground(Color.DARK_GRAY);
+                        casillas[i][j].add(botones[i][j]);
+                    }
+                    else if(i>6){
+                        botones[i][j] = new Ficha();
+                        botones[i][j].setBackground(Color.RED);
+                        casillas[i][j].add(botones[i][j]);
+                    }
+                    else{
+                        botones[i][j] = new Ficha();
+                        botones[i][j].setBackground(Color.BLACK);
+                        casillas[i][j].add(botones[i][j]);
+                    }
                 }
                 else{
-                    colorFicha = Color.WHITE;
+                    casillas[i][j].setBackground(Color.WHITE);
                 }
-                buttons[i][j] = new JButton();
-                board.add(buttons[i][j]);
-                buttons[i][j].setBackground(colorFicha);
-                buttons[i][j].setFocusable(false);
+                casillas[i][j].setFocusable(false);
+                
             }
         }
         add(board);
@@ -92,8 +112,12 @@ public class Board extends JPanel {
         stats.add(moves);
         stats.add(textFichas);
         stats.add(fichasCap);
-        midPanel.add(stats, BorderLayout.WEST);
-        add(midPanel, BorderLayout.WEST);
+        salir = new JButton("Finalizar");
+        backMainMenu = new JButton("Volver al menu principal");
+        midPanel.add(stats, BorderLayout.EAST);
+        midPanel.add(salir);
+        midPanel.add(backMainMenu);
+        add(midPanel, BorderLayout.EAST);
     }
 
     public void refresh(){
@@ -105,16 +129,29 @@ public class Board extends JPanel {
 
     }
 
+    public void prepareActionsBoard(){
+        salir.addActionListener(e -> salida());
+        backMainMenu.addActionListener(e -> regresarAlMenu());
+    }
+
     public void setColorFondo(Color color){
 
         this.colorFondo = color;
+    }
+
+    private void salida(){
+        int valor = JOptionPane.showConfirmDialog(this, "Desea cerrar la aplicacion?", "Advertencia",
+                JOptionPane.YES_NO_OPTION);
+        if (valor == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 
     private void regresarAlMenu() {
         if (JOptionPane.showConfirmDialog(this.getRootPane(), "¿Desea regresar al menú? Perderá los datos de esta partida",
                 "Regresar al menú", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             this.setVisible(false);
-            menuPrincipal.setVisible(true);
+            DamasGUI.getGUI().setVisible(true);;
             refresh();
         }
     }

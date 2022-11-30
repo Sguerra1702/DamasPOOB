@@ -44,6 +44,7 @@ public class DamasTest {
             assertFalse(Integer.toString(jugador1.getFichasNum()), true);
     }
 
+    
     @Test
     public void shouldMove() {
         try {
