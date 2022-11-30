@@ -87,6 +87,9 @@ public class Tablero {
         turno += 1;
     }
 
+    /*
+     * metodo retorna el nombre del jugador en turno
+     */
     public String nombreJugadorEnTurno() {
         String name = null;
         for (Jugador dato : jugadores.values()) {
@@ -96,6 +99,11 @@ public class Tablero {
         return name;
     }
 
+    /*
+     * obtiene las fichas del jugador en cierto turno
+     * 
+     * @param turno int
+     */
     public ArrayList<Ficha> fichasJugador(int turno) {
 
         ArrayList<Ficha> fichas = null;
@@ -106,6 +114,11 @@ public class Tablero {
         return fichas;
     }
 
+    /**
+     * obtienes todas las fichas de los jugadores en un solo arreglo
+     * 
+     * @return
+     */
     public ArrayList<Ficha> getAllFichas() {
         ArrayList<ArrayList<Ficha>> fichas = new ArrayList<ArrayList<Ficha>>();
         ArrayList<Ficha> res = new ArrayList<Ficha>();
