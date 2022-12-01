@@ -11,6 +11,10 @@ import java.io.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import org.w3c.dom.DOMException;
+
+import domain.*;
+
 public class DamasGUI extends JFrame{
 
     private JPanel mainPanel, gameModeSelectionPanel, gamePanel, midPanel;
@@ -32,6 +36,8 @@ public class DamasGUI extends JFrame{
 
     private static DamasGUI nggyu;
 
+    private Tablero tablero;
+
     public DamasGUI(){
         prepareElements();
         prepareActions();
@@ -45,7 +51,7 @@ public class DamasGUI extends JFrame{
         return nggyu;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DamasException{
         nggyu = new DamasGUI();
         nggyu.setVisible(true);
     }
@@ -57,7 +63,7 @@ public class DamasGUI extends JFrame{
         setLocationRelativeTo(null);
         menuPrincipal = new MainMenu();
         menuGameSelect = new GameSelect();
-        board = new Board();
+        board = new Board(tablero);
         prepareElementsMenu();
 
     }
@@ -118,8 +124,9 @@ public class DamasGUI extends JFrame{
     }
     /**
      * Metodo que prepara las acciones del menu principal
+     * @throws DamasException
      */
-    public void prepareActionsMenu(){
+    public void prepareActionsMenu() {
         menuPrincipal.prepareActionsMenu();
     }
 
