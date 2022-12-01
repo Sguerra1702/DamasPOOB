@@ -22,9 +22,9 @@ public class MainMenu extends JPanel {
     }
 
     public void prepareElements() {
-        this.setBackground(Color.white);
+        this.setOpaque(false);;
         prepareElementsMenu();
-        image = loadImage("fondo.jpg");
+        image = loadImage("https://www.gifcen.com/wp-content/uploads/2022/01/wallpaper-gif-9.gif");
     }
 
     public void prepareElementsMenu() {
@@ -45,6 +45,7 @@ public class MainMenu extends JPanel {
         menuBotones.add(exit);
         menuBotones.setOpaque(false);
         this.add(menuBotones);
+        setVisible(true);
     }
 
     public void prepareActionsMenu() {
@@ -86,5 +87,5 @@ public class MainMenu extends JPanel {
         g.drawImage(image, 0, 0, this);
     }
 
-
+    
 }

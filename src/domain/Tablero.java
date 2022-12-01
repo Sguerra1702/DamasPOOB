@@ -28,6 +28,10 @@ public class Tablero {
         }
     }
 
+    public HashMap<String, Jugador> getJugadores(){
+        return jugadores;
+    }
+
     /**
      * agrega un jugador por cada llamada al metodo
      * 
@@ -113,7 +117,7 @@ public class Tablero {
         }
         return fichas;
     }
-
+    
     /**
      * obtienes todas las fichas de los jugadores en un solo arreglo
      * 

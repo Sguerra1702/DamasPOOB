@@ -3,6 +3,7 @@ package presentation;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
+import domain.*;
 
 public class GameSelect extends JPanel {
 
@@ -18,6 +19,8 @@ public class GameSelect extends JPanel {
     private JMenuItem load, save, start, quit, tamano, colorselect;
 
     private JButton normal, gottagofast, exit;
+
+    private Tablero tablero;
 
     public GameSelect(){
         prepareElements();
@@ -61,7 +64,7 @@ public class GameSelect extends JPanel {
 
     public void prepareElementsBoardQuicktime(){
         setVisible(false);
-        board = new Board();
+        board = new Board(tablero);
         board.prepareElements();
         board.setVisible(true);
     }

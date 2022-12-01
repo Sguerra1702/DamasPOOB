@@ -3,6 +3,8 @@ package presentation;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
+import java.util.*;
+
 import domain.*;
 
 public class Board extends JPanel {
@@ -19,17 +21,24 @@ public class Board extends JPanel {
 
     private Color colorFicha;
 
-    private JPanel[][] casillas;
+    private Casilla[][] casillas;
 
     private JButton[][] botones;
 
     private JLabel  textfield;
+
+    private ArrayList<Ficha> fichasJ1;
+
+    private ArrayList<Ficha> fichasJ2;
+
+    private Tablero tablero;
     /**
      * Constructor de la clase Board
      */
-    public Board(){
+    public Board(Tablero tablero){
         this.size = 10;
-        casillas = new JPanel[size][size];
+        this.tablero = tablero;
+        this.casillas = new Casilla[size][size];
         botones = new JButton[10][10];
         board = new JPanel();
         prepareElements();
@@ -66,23 +75,26 @@ public class Board extends JPanel {
         board.setLayout(new GridLayout(10, 10));
         for(int i=0;i<(10);i++) {
             for (int j = 0; j < (10); j++) {
-                casillas[i][j] = new JPanel();
+                //casillas[i][j] = new Casilla();
                 board.add(casillas[i][j]);
                 if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
                     casillas[i][j].setBackground(Color.BLACK);
                     if(i<3){
-                        botones[i][j] = new Ficha();
+                        botones[i][j] = new Fichaa();
                         botones[i][j].setBackground(Color.DARK_GRAY);
+                        //botones[i][j].addActionListener(e -> moveChecker(i, j));
                         casillas[i][j].add(botones[i][j]);
                     }
                     else if(i>6){
-                        botones[i][j] = new Ficha();
+                        botones[i][j] = new Fichaa();
                         botones[i][j].setBackground(Color.RED);
+                        //botones[i][j].addActionListener(e -> moveChecker(i, j));
                         casillas[i][j].add(botones[i][j]);
                     }
                     else{
-                        botones[i][j] = new Ficha();
+                        botones[i][j] = new Fichaa();
                         botones[i][j].setBackground(Color.BLACK);
+                        //botones[i][j].addActionListener(e -> moveChecker(i, j));
                         casillas[i][j].add(botones[i][j]);
                     }
                 }
@@ -120,6 +132,11 @@ public class Board extends JPanel {
         add(midPanel, BorderLayout.EAST);
     }
 
+    public HashMap<String, Jugador> getFichas() throws DamasException{
+        Tablero e = new Tablero(2);
+        return e.getJugadores();
+    }
+
     public void refresh(){
         this.setBackground(colorFondo);
         textfield.setBackground(colorFondo);
@@ -127,6 +144,10 @@ public class Board extends JPanel {
         midPanel.setBackground(colorFondo);
         board.setBackground(colorFondo);
 
+    }
+
+    public void moveChecker(int i, int j){
+        //domain.Humano.makeAMove(i, j , i , j, fichasJ2);
     }
 
     public void prepareActionsBoard(){

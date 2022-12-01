@@ -3,13 +3,17 @@ package presentation;
 import javax.swing.JButton;
 import java.awt.*;
 
-public class Ficha extends JButton{
+import domain.*;
+
+public class Fichaa extends JButton{
 
     private int x, y;
 
-    public Ficha(){
+    public Fichaa(){
         super();
         setPreferredSize(new Dimension(15, 15));
         setVisible(true);
     } 
+
+    
 }
