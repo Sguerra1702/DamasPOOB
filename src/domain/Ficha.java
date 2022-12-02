@@ -3,7 +3,7 @@ package domain;
 import java.awt.*;
 
 public abstract class Ficha {
-    protected int pos[];
+    protected int pos;
     protected Color color;
     protected int lives;
     protected boolean bajando;
@@ -16,7 +16,7 @@ public abstract class Ficha {
      * @param pos     pos
      * @param bajando boolean
      */
-    public Ficha(Color color, int[] pos, boolean bajando) {
+    public Ficha(Color color, int pos, boolean bajando) {
 
         this.pos = pos;
         this.color = color;
@@ -35,9 +35,9 @@ public abstract class Ficha {
     /**
      * retorna las posiciones
      * 
-     * @return int[]
+     * @return int
      */
-    public abstract int[] getPos();
+    public abstract int getPos();
 
     /**
      * define el color de la ficha
@@ -53,7 +53,7 @@ public abstract class Ficha {
      * @param x int
      * @param y int
      */
-    public abstract void setPos(int x, int y) throws DamasException;
+    public abstract void setPos(int pos) throws DamasException;
 
     /**
      * 

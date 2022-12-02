@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Ninja extends Ficha {
 
-    public Ninja(Color color, int[] pos, boolean bajando) {
+    public Ninja(Color color, int pos, boolean bajando) {
 
         super(color, pos, bajando);
         lives += 1;
@@ -16,7 +16,7 @@ public class Ninja extends Ficha {
         return color;
     }
 
-    public int[] getPos() {
+    public int getPos() {
 
         return pos;
     }
@@ -26,13 +26,12 @@ public class Ninja extends Ficha {
         super.color = color;
     }
 
-    public void setPos(int x, int y) throws DamasException {
-        if (x <= 8 || y <= 8) {
-            pos[0] = x;
-            pos[1] = y;
+    public void setPos(int pos) throws DamasException {
+        if (pos >= 0 || pos <= 10) {
+            this.pos = pos;
         } else {
 
-            throw new DamasException("a");
+            throw new DamasException(DamasException.FUERA_DE_RANGO);
 
         }
 

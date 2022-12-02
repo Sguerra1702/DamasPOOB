@@ -27,7 +27,7 @@ public class Humano extends Jugador {
         punt = 0;
         turno = i;
 
-        if (i == 1)
+        if (i == 0)
             generateFichasj1();
         else
             generateFichasj2();
@@ -49,16 +49,15 @@ public class Humano extends Jugador {
      * @param fichasJugadorAlt ArrayList
      * 
      */
-    public boolean makeAMove(int fx, int fy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
+    public boolean makeAMove(int posf, int posm, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
         boolean res = false;
         for (Ficha a : fichas) {
-            if (a.getPos()[0] == fx && a.getPos()[1] == fy) {
-                int movx = fx - mx;
-                int movy = fy - my;
-                if (my < 0 && getFicha(fx, fy).bajando() || my > 0 && !getFicha(fx, fy).bajando()) {
-                    a.setPos(movx + a.getPos()[0], movy + a.getPos()[1]);
-                    if (doesEat(movx + a.getPos()[0], movy + a.getPos()[1], mx, my, fichasJugadorAlt)
-                            && friendlyFire(mx, my)) {
+            if (a.getPos() == posf) {
+                int movy = posf - posm;
+                if (movy < 0 && getFicha(posf).bajando() || movy > 0 && !getFicha(posf).bajando()) {
+                    a.setPos(posm);
+                    if (doesEat(posm, fichasJugadorAlt)
+                            && friendlyFire(posm)) {
                         res = true;
                     }
                 } else {
@@ -73,11 +72,11 @@ public class Humano extends Jugador {
         return res;
     }
 
-    public void getEaten(int mx, int my) {
+    public void getEaten(int pos) {
 
         for (int i = 0; i < fichas.size(); i++) {
 
-            if (fichas.get(i).getPos()[0] == mx && fichas.get(i).getPos()[1] == my) {
+            if (fichas.get(i).getPos() == pos) {
 
                 fichas.remove(i);
 
@@ -144,8 +143,7 @@ public class Humano extends Jugador {
      * 
      * @param posy int
      */
-    public Ficha getFicha(int posx, int posy) {
-        int[] pos = { posx, posy };
+    public Ficha getFicha(int pos) {
         Ficha ficha = null;
         for (Ficha a : fichas) {
             if (a.getPos() == pos) {
@@ -159,9 +157,9 @@ public class Humano extends Jugador {
 
     // METODOS PRIVADOS
 
-    private boolean friendlyFire(int mx, int my) {
+    private boolean friendlyFire(int posm) {
         boolean res = true;
-        if (getFicha(mx, my) != null) {
+        if (getFicha(posm) != null) {
 
             res = false;
         }
@@ -169,31 +167,37 @@ public class Humano extends Jugador {
     }
 
     private void generateFichasj1() {
-        int y = 0;
-        for (int x = 0; x <= 9; x++) {
-            if (y == 0) {
-                int[] pos1 = { x, 0 };
-                int[] pos2 = { x, 2 };
-                Normal ficha1 = new Normal(color, pos1, true);
-                Normal ficha2 = new Normal(color, pos2, true);
-                fichas.add(ficha1);
-                fichas.add(ficha2);
-                y += 1;
+
+        int fact = 0;
+        for (int i = 0; i <= 3; i++) {
+            if (i != 0) {
+
+                fact = i * 10;
 
             }
-            if (y == 1) {
-                int[] pos1 = { x, 1 };
-                Normal ficha1 = new Normal(color, pos1, true);
-                fichas.add(ficha1);
-                y = 0;
+            if (!(i % 2 == 0)) {
+                for (int j = 1; j <= 5; j++) {
+
+                    Normal ficha1 = new Normal(color, 2 * j + fact, true);
+                    fichas.add(ficha1);
+
+                }
+            } else {
+                for (int j = 0; j < 5; j++) {
+                    Normal ficha1 = new Normal(color, 2 * j + 1 + fact, true);
+                    fichas.add(ficha1);
+
+                }
+
             }
+
         }
     }
 
-    private boolean doesEat(int movx, int movy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) {
+    private boolean doesEat(int pos, ArrayList<Ficha> fichasJugadorAlt) {
         boolean res = false;
         for (Ficha a : fichasJugadorAlt) {
-            if (a.getPos()[0] == movx && a.getPos()[1] == movy) {
+            if (a.getPos() == pos && a.getPos() == pos) {
                 punt += 10;
                 res = true;
             }
@@ -202,23 +206,27 @@ public class Humano extends Jugador {
     }
 
     private void generateFichasj2() {
-        int y = 0;
-        for (int x = 0; x <= 9; x++) {
-            if (y == 1) {
-                int[] pos1 = { x, 0 };
-                int[] pos2 = { x, 2 };
-                Normal ficha1 = new Normal(color, pos1, false);
-                Normal ficha2 = new Normal(color, pos2, false);
-                fichas.add(ficha1);
-                fichas.add(ficha2);
-                y += 1;
+        int fact = 0;
+        for (int i = 6; i <= 9; i++) {
+            if (i != 0) {
+
+                fact = i * 10;
 
             }
-            if (y == 0) {
-                int[] pos1 = { x, 1 };
-                Normal ficha1 = new Normal(color, pos1, false);
-                fichas.add(ficha1);
-                y = 0;
+            if (!(i % 2 == 0)) {
+                for (int j = 1; j <= 5; j++) {
+
+                    Normal ficha1 = new Normal(color, 2 * j + fact, false);
+                    fichas.add(ficha1);
+
+                }
+            } else {
+                for (int j = 0; j < 5; j++) {
+                    Normal ficha1 = new Normal(color, 2 * j + 1 + fact, false);
+                    fichas.add(ficha1);
+
+                }
+
             }
 
         }

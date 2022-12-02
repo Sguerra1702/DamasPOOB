@@ -3,7 +3,7 @@ package domain;
 import java.awt.*;
 
 public class Zombie extends Ficha {
-    public Zombie(Color color, int[] pos, boolean bajando) {
+    public Zombie(Color color, int pos, boolean bajando) {
 
         super(color, pos, bajando);
 
@@ -14,7 +14,7 @@ public class Zombie extends Ficha {
         return color;
     }
 
-    public int[] getPos() {
+    public int getPos() {
 
         return pos;
     }
@@ -24,13 +24,12 @@ public class Zombie extends Ficha {
         super.color = color;
     }
 
-    public void setPos(int x, int y) throws DamasException {
-        if (x <= 8 || y <= 8) {
-            pos[0] = x;
-            pos[1] = y;
+    public void setPos(int pos) throws DamasException {
+        if (pos >= 0 || pos <= 10) {
+            this.pos = pos;
         } else {
 
-            throw new DamasException("a");
+            throw new DamasException(DamasException.FUERA_DE_RANGO);
 
         }
 

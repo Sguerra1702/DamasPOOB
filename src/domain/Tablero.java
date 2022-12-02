@@ -28,7 +28,7 @@ public class Tablero {
         }
     }
 
-    public HashMap<String, Jugador> getJugadores(){
+    public HashMap<String, Jugador> getJugadores() {
         return jugadores;
     }
 
@@ -65,11 +65,11 @@ public class Tablero {
      * @return
      * @throws DamasException
      */
-    public void makeAMove(int fx, int fy, int mx, int my, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
+    public void makeAMove(int posf, int posy, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
         Ficha ficha = null;
         boolean come = false;
         for (Jugador dato : jugadores.values()) {
-            ficha = dato.getFicha(fx, fy);
+            ficha = dato.getFicha(posf);
         }
         if (ficha == null) {
             throw new DamasException(DamasException.FICHA_NO_EXISTE);
@@ -78,12 +78,12 @@ public class Tablero {
         for (Jugador dato : jugadores.values()) {
             if (dato.getColor() == ficha.getColor() && jugadorEnTurno(dato.getTurn())) {
 
-                come = dato.makeAMove(fx, fy, mx, my, fichasJugadorAlt);
+                come = dato.makeAMove(posf, posy, fichasJugadorAlt);
 
             }
         }
         if (come == true) {
-            jugadores.get(nombreJugadorEnNoTurno()).getEaten(mx, my);
+            jugadores.get(nombreJugadorEnNoTurno()).getEaten(posy);
         }
         if (turno == 1) {
             turno = 0;
@@ -117,7 +117,7 @@ public class Tablero {
         }
         return fichas;
     }
-    
+
     /**
      * obtienes todas las fichas de los jugadores en un solo arreglo
      * 
