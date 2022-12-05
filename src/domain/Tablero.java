@@ -20,7 +20,7 @@ public class Tablero {
      */
     public Tablero(int cantidad_jugadores) throws DamasException {
         jugadores = new HashMap<String, Jugador>();
-        if (cantidad_jugadores > 1) {
+        if (cantidad_jugadores == 1) {
             jugadores.put("Maquina", new Maquina());
         }
         if (cantidad_jugadores > 2) {

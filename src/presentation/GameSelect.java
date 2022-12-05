@@ -20,23 +20,51 @@ public class GameSelect extends JPanel {
 
     private JButton normal, gottagofast, exit;
 
+    private int nJugadores;
+
     private Tablero tablero;
 
-    public GameSelect(){
-        prepareElements();
+    private Color color1, color2;
+
+    private String name1, name2;
+
+    private int turnoJ1, turnoJ2;
+    
+
+    public GameSelect(Color color1, String name1, int turnoJ1){
+        prepareElements1P(color1, name1, turnoJ1);
+
     }
 
-    public void prepareElements(){
+    public GameSelect(Color color1, Color color2, String name1, String name2, int turnoJ1, int turnoJ2){
+        prepareElements2P(color1, color2, name1, name2, turnoJ1, turnoJ2);
+    }
+
+    public void prepareElements1P(Color color1, String name1, int turnoJ1){
         setBackground(Color.black);
         setOpaque(false);
         prepareElementsGameSelect();
-        prepareActionsGameSelect();
+        prepareActionsGameSelect1P(color1, name1, turnoJ1);
         image = loadImage("https://www.gifcen.com/wp-content/uploads/2022/01/wallpaper-gif-9.gif");
     }
 
-    public void prepareActionsGameSelect() {
-        normal.addActionListener(e -> prepareElementsBoardNormal());
-        gottagofast.addActionListener(e -> prepareElementsBoardQuicktime());
+    public void prepareElements2P(Color color1, Color color2, String name1, String name2, int turnoJ1, int turnoJ2){
+        setBackground(Color.black);
+        setOpaque(false);
+        prepareElementsGameSelect();
+        prepareActionsGameSelect2P(color1, color2, name1, name2, turnoJ1, turnoJ2);
+        image = loadImage("https://www.gifcen.com/wp-content/uploads/2022/01/wallpaper-gif-9.gif");
+    }
+
+    public void prepareActionsGameSelect1P(Color color1, String name1, int turnoJ1) {
+        normal.addActionListener(e -> prepareElementsBoardNormal1P(color1, name1, turnoJ1));
+        gottagofast.addActionListener(e -> prepareElementsBoardQuickT1P(color1, name1, turnoJ1));
+        exit.addActionListener(e -> confirmateClose());
+    }
+
+    public void prepareActionsGameSelect2P(Color color1, Color color2, String name1, String name2, int turnoJ1, int turnoJ2) {
+        normal.addActionListener(e -> prepareElementsBoardNormal2P(color1, color2, name1, name2, turnoJ1, turnoJ2));
+        gottagofast.addActionListener(e -> prepareElementsBoardQuickT2P(color1, color2, name1, name2, turnoJ1, turnoJ2));
         exit.addActionListener(e -> confirmateClose());
     }
 
@@ -58,15 +86,20 @@ public class GameSelect extends JPanel {
 
     }
 
-    public void prepareElementsBoardNormal(){
-        DamasGUI.getGUI().prepareElementsBoardNormal();
+    public void prepareElementsBoardNormal1P(Color color1, String name1, int turnoJ1){
+        DamasGUI.getGUI().prepareElementsBoardNormal1P(color1, name1, turnoJ1);
     }
 
-    public void prepareElementsBoardQuicktime(){
-        setVisible(false);
-        board = new Board(tablero);
-        board.prepareElements();
-        board.setVisible(true);
+    public void prepareElementsBoardNormal2P(Color color1, Color color2, String name1, String name2, int turnoJ1, int turnoJ2){
+        DamasGUI.getGUI().prepareElementsBoardNormal2P(color1, color2, name1, name2, turnoJ1, turnoJ2);
+    }
+
+    public void prepareElementsBoardQuickT1P(Color color1, String name1, int turnoJ1){
+        DamasGUI.getGUI().prepareElementsBoardQuickT1P(color1, name1, turnoJ1);
+    }
+
+    public void prepareElementsBoardQuickT2P(Color color1, Color color2, String name1, String name2, int turnoJ1, int turnoJ2){
+        DamasGUI.getGUI().prepareElementsBoardQuickT2P(color1, color2, name1, name2, turnoJ1, turnoJ2);
     }
 
     private void confirmateClose() {

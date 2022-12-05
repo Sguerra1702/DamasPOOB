@@ -21,9 +21,9 @@ public class Board extends JPanel {
 
     private Color colorFicha;
 
-    private Casilla[][] casillas;
+    private JPanel[][] casillas;
 
-    private JButton[][] botones;
+    private Ficha[][] botones;
 
     private JLabel  textfield;
 
@@ -31,15 +31,46 @@ public class Board extends JPanel {
 
     private ArrayList<Ficha> fichasJ2;
 
+    private HashMap<String, Jugador> jugadores;
+
+
     private Tablero tablero;
     /**
      * Constructor de la clase Board
      */
-    public Board(Tablero tablero){
+    public Board(int nJugadores, Color color1, String name1, int turnoJ1){
         this.size = 10;
-        this.tablero = tablero;
-        this.casillas = new Casilla[size][size];
-        botones = new JButton[10][10];
+        try{
+            tablero = new Tablero(nJugadores);
+            tablero.addJugador(name1, color1, turnoJ1);
+        }catch (DamasException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        jugadores = tablero.getJugadores();
+        fichasJ1 = jugadores.get(name1).getFichas();
+        casillas = new JPanel[size][size];
+        botones = new Ficha[size][size];
+        board = new JPanel();
+        prepareElements();
+    }
+
+    public Board(int nJugadores, Color color1, Color color2, String name1, String name2, int turnoJ1, int turnoJ2){
+        this.size = 10;
+        try{
+            tablero = new Tablero(nJugadores);
+            tablero.addJugador(name1, color1, turnoJ1);
+            tablero.addJugador(name2, color2, turnoJ2);
+        }catch (DamasException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        jugadores = tablero.getJugadores();
+        for(String key: jugadores.keySet()){
+            System.out.println(key);
+        }
+        fichasJ1 = jugadores.get(name1).getFichas();
+        fichasJ2 = jugadores.get(name2).getFichas();
+        casillas = new JPanel[size][size];
+        botones = new Normal[size][size];
         board = new JPanel();
         prepareElements();
     }
@@ -73,35 +104,52 @@ public class Board extends JPanel {
         board = new JPanel();
         board.setBorder(new CompoundBorder(new EmptyBorder(3, 3, 3, 3), new TitledBorder("Board DaPOOs")));
         board.setLayout(new GridLayout(10, 10));
+        int k = 0;
+        int l = 0;
         for(int i=0;i<(10);i++) {
             for (int j = 0; j < (10); j++) {
-                //casillas[i][j] = new Casilla();
+                casillas[i][j] = new JPanel();
                 board.add(casillas[i][j]);
                 if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
                     casillas[i][j].setBackground(Color.BLACK);
-                    if(i<3){
-                        botones[i][j] = new Fichaa();
-                        botones[i][j].setBackground(Color.DARK_GRAY);
-                        //botones[i][j].addActionListener(e -> moveChecker(i, j));
-                        casillas[i][j].add(botones[i][j]);
+                    if(i<5){
+                        if(k<20){
+                            botones[i][j] = fichasJ1.get(k);
+
+                            //botones[i][j].addActionListener(e -> moveChecker(i, j));
+                            casillas[i][j].add(botones[i][j]);
+                            casillas[i][j].setAlignmentX(JPanel.CENTER_ALIGNMENT);
+                            k++;
+                        }
                     }
-                    else if(i>6){
-                        botones[i][j] = new Fichaa();
-                        botones[i][j].setBackground(Color.RED);
-                        //botones[i][j].addActionListener(e -> moveChecker(i, j));
-                        casillas[i][j].add(botones[i][j]);
-                    }
-                    else{
-                        botones[i][j] = new Fichaa();
-                        botones[i][j].setBackground(Color.BLACK);
-                        //botones[i][j].addActionListener(e -> moveChecker(i, j));
-                        casillas[i][j].add(botones[i][j]);
+                    
+                    
+                }
+                else{
+                    casillas[i][j].setBackground(Color.WHITE);
+                }
+                casillas[i][j].setFocusable(false);
+                
+                
+            }
+        }
+        for(int i=0;i<(10);i++) {
+            for (int j = 0; j < (10); j++) {
+                if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
+                    if(i>5){
+                        if(l < 20){
+                            botones[i][j] = fichasJ2.get(l);
+                            //botones[i][j].addActionListener(e -> moveChecker(i, j));
+                            casillas[i][j].add(botones[i][j]);
+                            l++;
+                        }
                     }
                 }
                 else{
                     casillas[i][j].setBackground(Color.WHITE);
                 }
                 casillas[i][j].setFocusable(false);
+                
                 
             }
         }

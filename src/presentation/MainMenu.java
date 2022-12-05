@@ -1,6 +1,9 @@
 package presentation;
 
 import javax.swing.*;
+
+import domain.Damas;
+
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
@@ -16,6 +19,7 @@ public class MainMenu extends JPanel {
 
     Image image;
     private JLabel textfield;
+
 
     public MainMenu() {
         prepareElements();
@@ -49,15 +53,18 @@ public class MainMenu extends JPanel {
     }
 
     public void prepareActionsMenu() {
-        solo.addActionListener(e -> preareElementsGameSelect());
-        vsButton.addActionListener(e -> DamasGUI.getGUI().prepareElementsGameSelect());
+        solo.addActionListener(e -> prepareElementsPlayerConfig1P());
+        vsButton.addActionListener(e -> prepareElementsPlayerConfig2P());
         exit.addActionListener(e -> confirmateClose());
     }
 
-    public void preareElementsGameSelect(){
-        DamasGUI.getGUI().prepareElementsGameSelect();
+    public void prepareElementsPlayerConfig1P(){
+        DamasGUI.getGUI().prepareElementsPlayerConfig1P();
     }
 
+    public void prepareElementsPlayerConfig2P(){
+        DamasGUI.getGUI().prepareElementsPlayerConfig2P();
+    }
 
     private void confirmateClose() {
         int valor = JOptionPane.showConfirmDialog(this, "Desea cerrar la aplicacion?", "Advertencia",

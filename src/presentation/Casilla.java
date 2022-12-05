@@ -3,11 +3,15 @@ package presentation;
 import javax.swing.JPanel;
 import java.awt.*;
 
-public abstract class Casilla extends JPanel{
+public class Casilla extends JPanel{
     private int xPos, yPos;
 
     private Color color;
 
+
+    public Casilla(){
+        super();
+    }
     public int getX(){
         return xPos;
     }

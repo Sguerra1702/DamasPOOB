@@ -34,7 +34,11 @@ public class DamasGUI extends JFrame{
 
     private Color color;
 
+    private j12 j12Maquina, j12Jugadores;
+
     private static DamasGUI nggyu;
+
+    private int nJugadores;
 
     private Tablero tablero;
 
@@ -62,8 +66,19 @@ public class DamasGUI extends JFrame{
         setSize(screenSize.width, screenSize.height);
         setLocationRelativeTo(null);
         menuPrincipal = new MainMenu();
-        menuGameSelect = new GameSelect();
-        board = new Board(tablero);
+        try {
+            j12Maquina = new j12(0);
+        }
+        catch(DamasException e){
+            e.printStackTrace();
+        }
+        try {
+            j12Jugadores = new j12();
+        }
+        catch(DamasException e){
+            e.printStackTrace();
+        }
+        
         prepareElementsMenu();
 
     }
@@ -91,21 +106,60 @@ public class DamasGUI extends JFrame{
 
     }
 
-    public void prepareElementsGameSelect(){
+    public void prepareElementsPlayerConfig1P(){
         this.remove(menuPrincipal);
+        add(j12Maquina);
+        validate();
+        repaint();
+    }
+
+    public void prepareElementsPlayerConfig2P(){
+        this.remove(menuPrincipal);
+        add(j12Jugadores);
+        validate();
+        repaint();
+    }
+
+    public void prepareElementsGameSelect1P(Color color1, String name1, int turnoJ1){
+        menuGameSelect = new GameSelect(color, name1, turnoJ1);
+        this.remove(j12Maquina);
         add(menuGameSelect);
         validate();
         repaint();
     }
 
-    public void prepareElementsBoardNormal(){
+    public void prepareElementsGameSelect2P(Color color1, Color color2, String name1, String name2, int turnoJ1, int turnoJ2){
+        menuGameSelect = new GameSelect(color1, color2, name1, name2, turnoJ1, turnoJ2);
+        this.remove(j12Jugadores);
+        add(menuGameSelect);
+        validate();
+        repaint();
+    }
+
+    public void prepareElementsBoardNormal1P(Color color1, String name1, int turnoJ1){
+        board = new Board(nJugadores, color1, name1, turnoJ1);
         remove(menuGameSelect);
         add(board);
         validate();
         repaint();
     }
 
-    public void prepareElementsBoardQuickTime(){
+    public void prepareElementsBoardNormal2P(Color color1, Color color2, String name1, String name2, int turnoJ1, int turnoJ2){
+        board = new Board(nJugadores, color1, color2, name1, name2, turnoJ1, turnoJ2);
+        remove(menuGameSelect);
+        add(board);
+        validate();
+        repaint();
+    }
+
+    public void prepareElementsBoardQuickT1P(Color color1, String name1, int turnoJ1){
+        remove(menuGameSelect);
+        add(board);
+        validate();
+        repaint();
+    }
+
+    public void prepareElementsBoardQuickT2P(Color color1, Color color2, String name1, String name2, int turnoJ1, int turnoJ2){
         remove(menuGameSelect);
         add(board);
         validate();

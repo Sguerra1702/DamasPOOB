@@ -2,7 +2,12 @@ package domain;
 
 import java.awt.*;
 
-public abstract class Ficha {
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+
+public abstract class Ficha extends JButton{
+    private static final Border EmptyBorder = null;
     protected int pos;
     protected Color color;
     protected int lives;
@@ -17,9 +22,12 @@ public abstract class Ficha {
      * @param bajando boolean
      */
     public Ficha(Color color, int pos, boolean bajando) {
-
+        super();
+        Dimension dimension = new Dimension(30, 30);
+        this.setPreferredSize(dimension);
         this.pos = pos;
         this.color = color;
+        this.setBackground(color);
         lives += 1;
         this.bajando = bajando;
 
