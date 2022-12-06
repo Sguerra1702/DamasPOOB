@@ -2,12 +2,20 @@ package presentation;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.MouseInputAdapter;
+
+
 import java.awt.*;
 import java.util.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 import domain.*;
 
-public class Board extends JPanel {
+public class Board extends JPanel{
 
     private JButton salir, backMainMenu;
 
@@ -26,6 +34,8 @@ public class Board extends JPanel {
     private Ficha[][] botones;
 
     private JLabel  textfield;
+
+    private Ficha fichaSelect, casillaSelect;
 
     private ArrayList<Ficha> fichasJ1;
 
@@ -48,6 +58,7 @@ public class Board extends JPanel {
         }
         jugadores = tablero.getJugadores();
         fichasJ1 = jugadores.get(name1).getFichas();
+
         casillas = new JPanel[size][size];
         botones = new Ficha[size][size];
         board = new JPanel();
@@ -109,40 +120,31 @@ public class Board extends JPanel {
         for(int i=0;i<(10);i++) {
             for (int j = 0; j < (10); j++) {
                 casillas[i][j] = new JPanel();
+
                 board.add(casillas[i][j]);
                 if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
                     casillas[i][j].setBackground(Color.BLACK);
-                    if(i<5){
+                    if(i<4){
                         if(k<20){
                             botones[i][j] = fichasJ1.get(k);
-
-                            //botones[i][j].addActionListener(e -> moveChecker(i, j));
+                            prepareActionsFicha(botones[i][j]);
                             casillas[i][j].add(botones[i][j]);
-                            casillas[i][j].setAlignmentX(JPanel.CENTER_ALIGNMENT);
                             k++;
                         }
                     }
-                    
-                    
-                }
-                else{
-                    casillas[i][j].setBackground(Color.WHITE);
-                }
-                casillas[i][j].setFocusable(false);
-                
-                
-            }
-        }
-        for(int i=0;i<(10);i++) {
-            for (int j = 0; j < (10); j++) {
-                if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
-                    if(i>5){
+                    else if(i>5){
                         if(l < 20){
                             botones[i][j] = fichasJ2.get(l);
-                            //botones[i][j].addActionListener(e -> moveChecker(i, j));
+                            prepareActionsFicha(botones[i][j]);
                             casillas[i][j].add(botones[i][j]);
                             l++;
                         }
+                    }                 
+                    else if(i>= 4 && i<6){
+                        Dimension dimension = casillas[i][j].getSize();
+                        botones[i][j] = new Normal(Color.BLACK, i, j, false);
+                        prepareActionsFicha(botones[i][j]);
+                        casillas[i][j].add(botones[i][j]);
                     }
                 }
                 else{
@@ -198,6 +200,30 @@ public class Board extends JPanel {
         //domain.Humano.makeAMove(i, j , i , j, fichasJ2);
     }
 
+    public void makeAMove(Ficha ficha){
+        if (fichaSelect == null){
+            fichaSelect = ficha;
+        }
+        else{
+            casillaSelect = ficha;
+            try{
+                tablero.makeAMove(fichaSelect.getPosx(), fichaSelect.getPosy(), casillaSelect.getPosx(), casillaSelect.getPosy(), fichasJ1);
+            }
+            catch(DamasException e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+
+    }
+
+    public void prepareActionsFicha(Ficha ficha){
+        ficha.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                makeAMove(ficha);
+            }
+        });
+    }
     public void prepareActionsBoard(){
         salir.addActionListener(e -> salida());
         backMainMenu.addActionListener(e -> regresarAlMenu());
@@ -224,4 +250,6 @@ public class Board extends JPanel {
             refresh();
         }
     }
+    
 }
+

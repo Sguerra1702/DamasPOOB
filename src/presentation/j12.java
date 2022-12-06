@@ -4,8 +4,7 @@
 
     import javax.swing.*;
     import java.awt.*;
-    import java.awt.event.ActionEvent;
-    import java.awt.event.ActionListener;
+    import java.net.URL;
 
     public class j12 extends JPanel{              
         /**
@@ -22,6 +21,7 @@
         /**
          * grafico
          */
+        Image imagen;
         private javax.swing.JButton Siguiente;
         private javax.swing.JLabel Title;
         private javax.swing.JButton Volver;
@@ -175,6 +175,7 @@
                     .addComponent(Siguiente))
                 .addGap(15, 15, 15))
         );
+        imagen = loadImage("https://i.pinimg.com/originals/c4/39/e6/c439e63ea965afac8ff261a0b904898f.gif");
         revalidate();
         repaint();
     }
@@ -394,6 +395,7 @@
                     .addComponent(Siguiente))
                 .addGap(15, 15, 15))
         );
+        imagen = loadImage("https://i.pinimg.com/originals/c4/39/e6/c439e63ea965afac8ff261a0b904898f.gif");
         revalidate();
         repaint();
     }
@@ -426,5 +428,24 @@
     public void prepareElementsGameselect2P(Color color1, Color color2, String name1, String name2, int turnoJ1, int turnoJ2){
         DamasGUI.getGUI().prepareElementsGameSelect2P(color1, color2, name1, name2, turnoJ1, turnoJ2);
     }
-    
+
+    private Image loadImage(String url){
+        try{
+            getToolkit();
+            final Image img = Toolkit.getDefaultToolkit().createImage(new URL(url));
+            getToolkit();
+            Toolkit.getDefaultToolkit().prepareImage(img, -1, -1, null);
+            return img;
+        }
+        catch(Exception e){
+            return null;
+        }
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.drawImage(imagen, 0, 0, this);
+    }
 }

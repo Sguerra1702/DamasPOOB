@@ -4,9 +4,9 @@ import java.awt.*;
 
 public class Reina extends Ficha {
 
-    public Reina(Color color, int pos, boolean bajando) {
+    public Reina(Color color, int posx, int posy, boolean bajando) {
 
-        super(color, pos, bajando);
+        super(color, posx, posy, bajando);
 
     }
 
@@ -15,9 +15,14 @@ public class Reina extends Ficha {
         return color;
     }
 
-    public int getPos() {
+    public int getPosx() {
 
-        return pos;
+        return posx;
+    }
+
+    public int getPosy() {
+
+        return posy;
     }
 
     public void setColor(Color color) {
@@ -25,15 +30,30 @@ public class Reina extends Ficha {
         super.color = color;
     }
 
-    public void setPos(int pos) throws DamasException {
-        if (pos >= 0 || pos <= 10) {
-            this.pos = pos;
+    public void setPosx(int posx) throws DamasException {
+        if (posx >= 0 || posx <= 10) {
+            this.posx = posx;
         } else {
 
             throw new DamasException(DamasException.FUERA_DE_RANGO);
 
         }
 
+    }
+
+    public void setPosy(int posy) throws DamasException {
+        if (posy >= 0 || posy <= 10) {
+            this.posy = posy;
+        } else {
+
+            throw new DamasException(DamasException.FUERA_DE_RANGO);
+
+        }
+
+    }
+
+    public void setTamano(Dimension dimension){
+        this.setPreferredSize(dimension);
     }
 
     public void action() {

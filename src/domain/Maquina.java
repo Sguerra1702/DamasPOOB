@@ -9,7 +9,7 @@ public class Maquina extends Jugador {
     private int punt;
     private int turno;
 
-    public boolean makeAMove(int posf, int posm, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
+    public boolean makeAMove(int posix,int posiy, int posfx, int posfy, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
         return true;
     }
 
@@ -46,16 +46,16 @@ public class Maquina extends Jugador {
 
     }
 
-    public Ficha getFicha(int pos) {
+    public Ficha getFicha(int posx, int posy) {
 
         return null;
     }
 
-    public void getEaten(int pos) {
+    public void getEaten(int posx, int posy) {
 
         for (int i = 0; i < fichas.size(); i++) {
 
-            if (fichas.get(i).getPos() == pos) {
+            if (fichas.get(i).getPosx() == posx && fichas.get(i).getPosy() == posy) {
 
                 fichas.remove(i);
 

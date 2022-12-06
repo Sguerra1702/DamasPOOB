@@ -1,0 +1,48 @@
+        for(int i=0;i<(10);i++) {
+            for (int j = 0; j < (10); j++) {
+                casillas[i][j] = new JPanel();
+
+                board.add(casillas[i][j]);
+                if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
+                    casillas[i][j].setBackground(Color.BLACK);
+                    if(i>=5 && i<6){
+                        Dimension dimension = casillas[i][j].getSize();
+                        botones[i][j] = new Normal(Color.BLACK, i, j, false);
+                        botones[i][j].setTamano(dimension);
+                        prepareActionsFicha(botones[i][j]);
+                        casillas[i][j].add(botones[i][j]);
+                        k++;                        
+                    }
+                    
+                    
+                }
+                else{
+                    casillas[i][j].setBackground(Color.WHITE);
+                }
+                casillas[i][j].setFocusable(false);
+                
+                
+            }
+        }
+
+
+        for(int i=0;i<(10);i++) {
+            for (int j = 0; j < (10); j++) {
+                if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
+                    if(i>5){
+                        if(l < 20){
+                            botones[i][j] = fichasJ2.get(l);
+                            //botones[i][j].addActionListener(e -> moveChecker(i, j));
+                            casillas[i][j].add(botones[i][j]);
+                            l++;
+                        }
+                    }
+                }
+                else{
+                    casillas[i][j].setBackground(Color.WHITE);
+                }
+                casillas[i][j].setFocusable(false);
+                
+                
+            }
+        }

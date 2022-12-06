@@ -23,6 +23,8 @@ public class DamasGUI extends JFrame{
 
     private JMenuBar menuBar;
 
+    Image image;
+
     private JMenuItem load, save, start, quit, tamano, colorselect;
 
 
@@ -66,6 +68,7 @@ public class DamasGUI extends JFrame{
         setSize(screenSize.width, screenSize.height);
         setLocationRelativeTo(null);
         menuPrincipal = new MainMenu();
+        menuPrincipal.setOpaque(false);
         try {
             j12Maquina = new j12(0);
         }
@@ -80,6 +83,8 @@ public class DamasGUI extends JFrame{
         }
         
         prepareElementsMenu();
+        image = loadImage("https://thumbs.gfycat.com/WeeFilthyClingfish-size_restricted.gif");
+
 
     }
 
@@ -103,7 +108,7 @@ public class DamasGUI extends JFrame{
         settings.add(colorselect);
         setJMenuBar(menuBar);
         this.add(menuPrincipal);
-
+        
     }
 
     public void prepareElementsPlayerConfig1P(){
@@ -202,5 +207,18 @@ public class DamasGUI extends JFrame{
         }
     }
 
+    private Image loadImage(String url){
+        try{
+            getToolkit();
+            final Image img = Toolkit.getDefaultToolkit().createImage(new URL(url));
+            getToolkit();
+            Toolkit.getDefaultToolkit().prepareImage(img, -1, -1, null);
+            return img;
+        }
+        catch(Exception e){
+            return null;
+        }
+
+    }   
 
 }

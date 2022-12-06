@@ -20,7 +20,7 @@ public abstract class Jugador {
      * @param fichasJugadorAlt ArrayList
      * 
      */
-    public abstract boolean makeAMove(int posf, int posy, ArrayList<Ficha> fichasJugadorAlt)
+    public abstract boolean makeAMove(int posix, int posiy, int posfx,int posfy, ArrayList<Ficha> fichasJugadorAlt)
             throws DamasException;
 
     /**
@@ -43,7 +43,7 @@ public abstract class Jugador {
      * @param pos int
      * @return Ficha
      */
-    public abstract Ficha getFicha(int pos);
+    public abstract Ficha getFicha(int posx, int posy);
 
     /*
      * retorna un ArrayList de fichas
@@ -70,5 +70,5 @@ public abstract class Jugador {
      * 
      * @param pos
      */
-    public abstract void getEaten(int pos);
+    public abstract void getEaten(int posx, int posy);
 }
