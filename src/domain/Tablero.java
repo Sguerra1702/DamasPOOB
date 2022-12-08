@@ -20,7 +20,7 @@ public class Tablero {
      */
     public Tablero(int cantidad_jugadores) throws DamasException {
         jugadores = new HashMap<String, Jugador>();
-        if (cantidad_jugadores == 1) {
+        if (cantidad_jugadores > 1) {
             jugadores.put("Maquina", new Maquina());
         }
         if (cantidad_jugadores > 2) {
@@ -65,11 +65,11 @@ public class Tablero {
      * @return
      * @throws DamasException
      */
-    public void makeAMove(int posix, int posiy, int posfx, int posfy, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
+    public void makeAMove(int posf, int posy, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
         Ficha ficha = null;
         boolean come = false;
         for (Jugador dato : jugadores.values()) {
-            ficha = dato.getFicha(posix, posiy);
+            ficha = dato.getFicha(posf);
         }
         if (ficha == null) {
             throw new DamasException(DamasException.FICHA_NO_EXISTE);
@@ -78,12 +78,12 @@ public class Tablero {
         for (Jugador dato : jugadores.values()) {
             if (dato.getColor() == ficha.getColor() && jugadorEnTurno(dato.getTurn())) {
 
-                come = dato.makeAMove(posix, posiy, posfx, posfy, fichasJugadorAlt);
+                come = dato.makeAMove(posf, posy, fichasJugadorAlt);
 
             }
         }
         if (come == true) {
-            jugadores.get(nombreJugadorEnNoTurno()).getEaten(posix, posiy);
+            jugadores.get(nombreJugadorEnNoTurno()).getEaten(posy);
         }
         if (turno == 1) {
             turno = 0;
