@@ -188,18 +188,15 @@ public class Board extends JPanel{
     public void move(Ficha ficha, int turno){
         if (fichaSelect == null){
             fichaSelect = ficha;
-
         }
         else{
             casillaSelect = ficha;
-            fichasOP = tablero.fichasJugador(turno);
             try{
-                makeAMove(fichaSelect.getPos(), casillaSelect.getPos(), fichasOP);
+                tablero.makeAMove(fichaSelect.getPosx(), fichaSelect.getPosy(), casillaSelect.getPosx(), casillaSelect.getPosy(), fichasJ1);
             }
             catch(DamasException e){
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-            casillas = null;
         }
 
     }
