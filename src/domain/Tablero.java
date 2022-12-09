@@ -20,7 +20,7 @@ public class Tablero {
      */
     public Tablero(int cantidad_jugadores) throws DamasException {
         jugadores = new HashMap<String, Jugador>();
-        if (cantidad_jugadores > 1) {
+        if (cantidad_jugadores == 1) {
             jugadores.put("Maquina", new Maquina());
         }
         if (cantidad_jugadores > 2) {
@@ -48,7 +48,6 @@ public class Tablero {
             if (jugadores.size() == 2) {
                 checkNamesColor();
             }
-            checkNamesColor();
         } else {
 
             throw new DamasException(DamasException.NO_MAS_JUGADORES);
@@ -161,12 +160,27 @@ public class Tablero {
         return fichas;
     }
 
+    public String nombreJugadorEnNoTurno() {
+        String name = null;
+        for (Jugador dato : jugadores.values()) {
+            if (dato.getTurn() != turno)
+                name = dato.getName();
+        }
+        return name;
+    }
+
+    public ArrayList<Ficha> fichasJugAlt(){
+        return jugadores.get(nombreJugadorEnNoTurno()). getFichas();
+    }
+
     // METODOS PRIVADOS
     private void checkNamesColor() throws DamasException {
         String[] nombres = new String[2];
+        int x = 0;
         for (String key : jugadores.keySet()) {
 
-            nombres[0] = key;
+            nombres[x] = key;
+            x++;
         }
         if (jugadores.get(nombres[0]).getName() == jugadores.get(nombres[1]).getName()
                 && jugadores.get(nombres[0]).getColor() == jugadores.get(nombres[1]).getColor()) {
@@ -184,24 +198,15 @@ public class Tablero {
 
     }
 
-    private boolean jugadorEnTurno(int i) throws DamasException {
+    private boolean jugadorEnTurno(int i) {
+        boolean value = false;
         if (turno == i) {
-            return true;
-
-        } else {
-            throw new DamasException(null);
+            value = true;
 
         }
-
+        return value;
     }
 
-    public String nombreJugadorEnNoTurno() {
-        String name = null;
-        for (Jugador dato : jugadores.values()) {
-            if (dato.getTurn() != turno)
-                name = dato.getName();
-        }
-        return name;
-    }
+    
 
 }
