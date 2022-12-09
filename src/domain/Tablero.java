@@ -45,6 +45,9 @@ public class Tablero {
         if (jugadores.size() < 2) {
 
             jugadores.put(name, new Humano(name, color, turno));
+            if (jugadores.size() == 2) {
+                checkNamesColor();
+            }
             checkNamesColor();
         } else {
 
