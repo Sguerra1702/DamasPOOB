@@ -45,6 +45,7 @@ public class Tablero {
         if (jugadores.size() < 2) {
 
             jugadores.put(name, new Humano(name, color, turno));
+            checkNamesColor();
         } else {
 
             throw new DamasException(DamasException.NO_MAS_JUGADORES);
@@ -65,7 +66,8 @@ public class Tablero {
      * @return
      * @throws DamasException
      */
-    public void makeAMove(int posix, int posiy, int posfx, int posfy, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
+    public void makeAMove(int posix, int posiy, int posfx, int posfy, ArrayList<Ficha> fichasJugadorAlt)
+            throws DamasException {
         Ficha ficha = null;
         boolean come = false;
         for (Jugador dato : jugadores.values()) {
@@ -140,6 +142,28 @@ public class Tablero {
     }
 
     // METODOS PRIVADOS
+    private void checkNamesColor() throws DamasException {
+        String[] nombres = new String[2];
+        for (String key : jugadores.keySet()) {
+
+            nombres[0] = key;
+        }
+        if (jugadores.get(nombres[0]).getName() == jugadores.get(nombres[1]).getName()
+                && jugadores.get(nombres[0]).getColor() == jugadores.get(nombres[1]).getColor()) {
+            throw new DamasException(DamasException.NO_MISMO_COLOR_Y_NOMBRE);
+
+        }
+        if (jugadores.get(nombres[0]).getColor() == jugadores.get(nombres[1]).getColor()) {
+            throw new DamasException(DamasException.NO_MISMO_COLOR);
+
+        }
+        if (jugadores.get(nombres[0]).getName() == jugadores.get(nombres[1]).getName()) {
+            throw new DamasException(DamasException.NO_MISMO_NOMBRE);
+
+        }
+
+    }
+
     private boolean jugadorEnTurno(int i) throws DamasException {
         if (turno == i) {
             return true;
