@@ -41,13 +41,15 @@ public class DamasTest {
     @Test
     public void shouldGenerate20J1() {
 
-        if (jugador1.getFichasNum() == 20) {
+        if (jugador1.getFichasNum() == 21) {
             assertTrue(true);
         } else {
             ArrayList<Ficha> fichas = jugador1.getFichas();
             ArrayList<String> posiciones = new ArrayList<String>();
             for (Ficha a : fichas) {
-                posiciones.add(Integer.toString(a.getPosx()+a.getPosy()));
+                posiciones.add(Integer.toString(a.getPosx()));
+                posiciones.add(Integer.toString(a.getPosy()));
+                posiciones.add("-");
             }
             String[] array = posiciones.toArray(new String[0]);
             assertFalse(Arrays.toString(array) + Integer.toString(array.length), true);
