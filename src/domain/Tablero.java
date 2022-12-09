@@ -92,8 +92,9 @@ public class Tablero {
         }
         if (turno == 1) {
             turno = 0;
+        } else {
+            turno += 1;
         }
-        turno += 1;
     }
 
     /*
@@ -142,6 +143,23 @@ public class Tablero {
         }
         return res;
 
+    }
+
+    public void doNothing() {
+        if (turno == 1) {
+            turno = 0;
+        } else {
+            turno += 1;
+        }
+    }
+
+    public ArrayList<Jugador> getAllJugadores() {
+
+        ArrayList<Jugador> fichas = new ArrayList<Jugador>();
+        for (Jugador dato : jugadores.values()) {
+            fichas.add(dato);
+        }
+        return fichas;
     }
 
     // METODOS PRIVADOS
