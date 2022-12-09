@@ -48,7 +48,10 @@ public class Tablero {
             if (jugadores.size() == 2) {
                 checkNamesColor();
             }
-            checkNamesColor();
+            if (turno == 1) {
+                turno = 0;
+            }
+            turno += 1;
         } else {
 
             throw new DamasException(DamasException.NO_MAS_JUGADORES);
@@ -69,7 +72,8 @@ public class Tablero {
      * @return
      * @throws DamasException
      */
-        public void makeAMove(int posix, int posiy, int posfx, int posfy, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
+    public void makeAMove(int posix, int posiy, int posfx, int posfy, ArrayList<Ficha> fichasJugadorAlt)
+            throws DamasException {
         Ficha ficha = null;
         boolean come = false;
         for (Jugador dato : jugadores.values()) {
