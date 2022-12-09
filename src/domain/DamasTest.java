@@ -17,17 +17,15 @@ public class DamasTest {
     private Jugador jugador1;
     private Jugador jugador2;
     private ArrayList<Jugador> jugadores;
-    private int posx1 = 4;
-    private int posx2 = 8;
-    private int posy1 = 7;
-    private int posy2 = 6;
+    private int[] pos1 = { 25, 35 };
+    private int[] pos2 = { 26, 36 };
 
     @Before
     public void setUp() {
         jugador1 = new Humano("parralol", Color.DARK_GRAY, 0);
-        ficha1 = new Normal(jugador1.getColor(), posx1, posy1, true);
+        ficha1 = new Normal(jugador1.getColor(), pos1, true);
         jugador2 = new Humano("lattetona", Color.RED, 1);
-        ficha2 = new Normal(jugador2.getColor(), posx2, posy2, false);
+        ficha2 = new Normal(jugador2.getColor(), pos2, false);
         jugadores = new ArrayList<Jugador>();
         jugadores.add(jugador1);
         jugadores.add(jugador2);
@@ -47,8 +45,8 @@ public class DamasTest {
             ArrayList<Ficha> fichas = jugador1.getFichas();
             ArrayList<String> posiciones = new ArrayList<String>();
             for (Ficha a : fichas) {
-                posiciones.add(Integer.toString(a.getPosx()));
-                posiciones.add(Integer.toString(a.getPosy()));
+                posiciones.add(Integer.toString(a.getPos()[0]));
+                posiciones.add(Integer.toString(a.getPos()[1]));
                 posiciones.add("-");
             }
             String[] array = posiciones.toArray(new String[0]);

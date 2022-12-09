@@ -4,8 +4,8 @@ import java.awt.*;
 
 import javax.swing.*;
 
-public abstract class Ficha extends JButton{
-    protected int posx, posy;
+public abstract class Ficha extends JButton {
+    protected int pos[];
     protected Color color;
     protected int lives;
     protected boolean bajando;
@@ -18,14 +18,10 @@ public abstract class Ficha extends JButton{
      * @param pos     pos
      * @param bajando boolean
      */
-    public Ficha(Color color, int posx, int posy, boolean bajando) {
-        super();
-        Dimension dimension = new Dimension(30, 30);
-        this.setPreferredSize(dimension);
-        this.posx = posx;
-        this.posy = posy;
+    public Ficha(Color color, int[] pos, boolean bajando) {
+
+        this.pos = pos;
         this.color = color;
-        this.setBackground(color);
         lives += 1;
         this.bajando = bajando;
 
@@ -41,20 +37,9 @@ public abstract class Ficha extends JButton{
     /**
      * retorna las posiciones
      * 
-     * @return int
+     * @return int[]
      */
-    public abstract int getPosx();
-
-    /**
-     * retorna las posiciones
-     * 
-     * @return int
-     */
-    public abstract int getPosy();
-
-    public abstract void setTamano(Dimension dimension);
-
-
+    public abstract int[] getPos();
 
     /**
      * define el color de la ficha
@@ -70,16 +55,7 @@ public abstract class Ficha extends JButton{
      * @param x int
      * @param y int
      */
-    public abstract void setPosx(int posx) throws DamasException;
-
-    /**
-     * 
-     * coloca una nueva posicion de la dama
-     * 
-     * @param x int
-     * @param y int
-     */
-    public abstract void setPosy(int posy) throws DamasException;
+    public abstract void setPos(int x, int y) throws DamasException;
 
     /**
      * 
