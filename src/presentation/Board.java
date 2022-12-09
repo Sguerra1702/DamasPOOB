@@ -47,6 +47,10 @@ public class Board extends JPanel{
 
     private Color color1, color2;
 
+    private String name1, name2;
+
+    private int turnoJ1, turnoJ2;
+
     private Tablero tablero;
     ArrayList<Ficha> fichasOP;
     /**
@@ -54,6 +58,8 @@ public class Board extends JPanel{
      */
     public Board(int nJugadores, Color color1, String name1, int turnoJ1){
         this.size = 10;
+        this.color1 = color1;
+        this.name1 = name1;
         try{
             tablero = new Tablero(nJugadores);
             tablero.addJugador(name1, color1, turnoJ1);
@@ -71,6 +77,10 @@ public class Board extends JPanel{
 
     public Board(int nJugadores, Color color1, Color color2, String name1, String name2, int turnoJ1, int turnoJ2){
         this.size = 10;
+        this.color1 = color1;
+        this.name1 = name1;
+        this.color2 = color2;
+        this.name2 = name2;
         try{
             tablero = new Tablero(nJugadores);
             tablero.addJugador(name1, color1, turnoJ1);
@@ -129,18 +139,21 @@ public class Board extends JPanel{
                 if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
                     casillas[i][j].setBackground(Color.BLACK);
                     if(i <4){
-                        casillas[i][j].add(fichasJ1.get(k));
-                        prepareActionsFicha(fichasJ1.get(k), 0);
+
+                        casillas[i][j].add(jugadores.get(name1).getFicha(i, j));
+                        prepareActionsFicha(jugadores.get(name1).getFicha(i, j), 0);
                         k++;
                     }
                     else if(i>5){
-                        casillas[i][j].add(fichasJ2.get(l));
+                        casillas[i][j].add(jugadores.get(name1).getFicha(i, j));
 
-                        prepareActionsFicha(fichasJ2.get(l), 0);
+                        prepareActionsFicha(jugadores.get(name1).getFicha(i, j), 1);
                         l++;
                     }
                     else{
-                        casillas[i][j].add(new Normal(Color.BLACK, j, i, true));
+                        Ficha fichaNegra = new Normal(Color.BLACK, i, j, true);
+                        casillas[i][j].add(fichaNegra);
+                        prepareActionsFicha(fichaNegra, j);
                     }
                 }
                 else{
@@ -195,11 +208,12 @@ public class Board extends JPanel{
         }
         else {
             casillaSelect = ficha;
+            fichasOP = tablero.fichasJugAlt();
             try{
-                tablero.makeAMove(fichaSelect.getPosx(), fichaSelect.getPosy(), casillaSelect.getPosx(), casillaSelect.getPosy(), fichasJ1);
+                makeAMove(fichaSelect.getPosx(), fichaSelect.getPosy(), casillaSelect.getPosx(), casillaSelect.getPosy(), fichasOP);
             }
             catch(DamasException e){
-                JOptionPane.showMessageDialog(null, e.getMessage());
+                e.printStackTrace();
             }
         }
 
@@ -209,6 +223,7 @@ public class Board extends JPanel{
         tablero.makeAMove(posix, posiy, posfx, posfy, fichasAlt);
         fichaSelect = null;
         casillaSelect = null;
+        fichasOP = null;
         revalidate();
         repaint();
 
@@ -219,6 +234,8 @@ public class Board extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e){
                 try {
+                    System.out.println(ficha.getPosx());
+                    System.out.println(ficha.getPosy());
                     move(ficha, turno);
                 } catch (DamasException e1) {
                     // TODO Auto-generated catch block

@@ -167,7 +167,7 @@ public class Humano extends Jugador {
     }
 
     private void generateFichasj1() {
-        for(int i=0;i<(10);i++) {
+        for(int i=0;i<3;i++) {
             for (int j = 0; j < (10); j++) {
                 if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
                     fichas.add(new Normal(color, i, j, false));    
@@ -188,7 +188,7 @@ public class Humano extends Jugador {
     }
 
     private void generateFichasj2() {
-        for(int i=0;i<(10);i++) {
+        for(int i=6;i>10;i++) {
             for (int j = 0; j < (10); j++) {
                 if((i %2 == 0 && j%2!=0) || (i%2 == 1 && j%2 !=1)){
                     fichas.add(new Normal(color, i, j, false));    
