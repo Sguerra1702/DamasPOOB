@@ -65,7 +65,7 @@ public class Tablero {
      * @return
      * @throws DamasException
      */
-    public void makeAMove(int posix, int posiy, int posfx, int posfy, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
+        public void makeAMove(int posix, int posiy, int posfx, int posfy, ArrayList<Ficha> fichasJugadorAlt) throws DamasException {
         Ficha ficha = null;
         boolean come = false;
         for (Jugador dato : jugadores.values()) {

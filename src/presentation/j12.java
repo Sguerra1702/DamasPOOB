@@ -22,6 +22,8 @@
          * grafico
          */
         Image imagen;
+        Image scaledImage;
+        JLabel imageLabel = new JLabel();
         private javax.swing.JButton Siguiente;
         private javax.swing.JLabel Title;
         private javax.swing.JButton Volver;
@@ -175,7 +177,10 @@
                     .addComponent(Siguiente))
                 .addGap(15, 15, 15))
         );
-        imagen = loadImage("https://i.pinimg.com/originals/c4/39/e6/c439e63ea965afac8ff261a0b904898f.gif");
+        colorj1text.setVisible(false);
+        colorj1text.setVisible(false);
+        imagen = loadImage("https://miro.medium.com/max/720/1*kmi3_mISigRQnwxsR4WQmw.gif");
+
         revalidate();
         repaint();
     }
@@ -226,6 +231,7 @@
      */
 
     public j12() throws DamasException{
+
         jSeparator1 = new javax.swing.JSeparator();
         Title = new javax.swing.JLabel();
         datos = new javax.swing.JLabel();
@@ -316,7 +322,8 @@
          */
         Siguiente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Siguiente.setText("Siguente");
-
+        imagen = loadImage("https://i.pinimg.com/originals/c4/39/e6/c439e63ea965afac8ff261a0b904898f.gif");
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
@@ -364,6 +371,10 @@
                         .addComponent(j2)
                         .addGap(169, 169, 169))))
         );
+        colorj1text.setVisible(false);
+        colorj1.setVisible(false);
+        colorj2text.setVisible(false);
+        colorj2.setVisible(false);
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -395,7 +406,9 @@
                     .addComponent(Siguiente))
                 .addGap(15, 15, 15))
         );
-        imagen = loadImage("https://i.pinimg.com/originals/c4/39/e6/c439e63ea965afac8ff261a0b904898f.gif");
+        //Image scaledImage = imagen.getScaledInstance(this.getWidth(),this.getHeight(),Image.SCALE_SMOOTH);
+        //JLabel picLabel = new JLabel(new ImageIcon(scaledImage));
+        //add(picLabel);
         revalidate();
         repaint();
     }

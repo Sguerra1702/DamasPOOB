@@ -135,8 +135,12 @@ public class Board extends JPanel{
                     }
                     else if(i>5){
                         casillas[i][j].add(fichasJ2.get(l));
+
                         prepareActionsFicha(fichasJ2.get(l), 0);
                         l++;
+                    }
+                    else{
+                        casillas[i][j].add(new Normal(Color.BLACK, j, i, true));
                     }
                 }
                 else{
@@ -185,11 +189,11 @@ public class Board extends JPanel{
 
     
 
-    public void move(Ficha ficha, int turno){
+    public void move(Ficha ficha, int turno)throws DamasException{
         if (fichaSelect == null){
             fichaSelect = ficha;
         }
-        else{
+        else {
             casillaSelect = ficha;
             try{
                 tablero.makeAMove(fichaSelect.getPosx(), fichaSelect.getPosy(), casillaSelect.getPosx(), casillaSelect.getPosy(), fichasJ1);
@@ -205,6 +209,8 @@ public class Board extends JPanel{
         tablero.makeAMove(posix, posiy, posfx, posfy, fichasAlt);
         fichaSelect = null;
         casillaSelect = null;
+        revalidate();
+        repaint();
 
     }
 
@@ -212,10 +218,17 @@ public class Board extends JPanel{
         ficha.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                move(ficha, turno);
+                try {
+                    move(ficha, turno);
+                } catch (DamasException e1) {
+                    // TODO Auto-generated catch block
+                    e1.getMessage();
+                }
             }
         });
     }
+
+
     public void prepareActionsBoard(){
         salir.addActionListener(e -> salida());
         backMainMenu.addActionListener(e -> regresarAlMenu());
