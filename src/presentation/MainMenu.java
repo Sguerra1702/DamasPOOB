@@ -1,9 +1,6 @@
 package presentation;
 
 import javax.swing.*;
-
-import domain.Damas;
-
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
@@ -11,7 +8,7 @@ import java.net.URL;
 @SuppressWarnings("FieldCanBeLocal")
 public class MainMenu extends JPanel {
 
-    //private final JPanel mainPanel;
+    // private final JPanel mainPanel;
 
     private JPanel titlePanel;
 
@@ -20,20 +17,20 @@ public class MainMenu extends JPanel {
     Image image;
     private JLabel textfield;
 
-
     public MainMenu() {
         prepareElements();
     }
 
     public void prepareElements() {
-        this.setOpaque(false);;
+        this.setOpaque(false);
+        ;
         prepareElementsMenu();
     }
 
     public void prepareElementsMenu() {
         GridLayout orden = new GridLayout(4, 1, 70, 80);
         textfield = new JLabel();
-        textfield.setFont(new Font("Helvetica",Font.BOLD,69));
+        textfield.setFont(new Font("Helvetica", Font.BOLD, 69));
         textfield.setText("DAPOOS");
         textfield.setHorizontalAlignment(JLabel.CENTER);
         JPanel menuBotones = new JPanel();
@@ -58,11 +55,11 @@ public class MainMenu extends JPanel {
         exit.addActionListener(e -> confirmateClose());
     }
 
-    public void prepareElementsPlayerConfig1P(){
+    public void prepareElementsPlayerConfig1P() {
         DamasGUI.getGUI().prepareElementsPlayerConfig1P();
     }
 
-    public void prepareElementsPlayerConfig2P(){
+    public void prepareElementsPlayerConfig2P() {
         DamasGUI.getGUI().prepareElementsPlayerConfig2P();
     }
 
@@ -74,25 +71,23 @@ public class MainMenu extends JPanel {
         }
     }
 
-    private Image loadImage(String url){
-        try{
+    private Image loadImage(String url) {
+        try {
             getToolkit();
             final Image img = Toolkit.getDefaultToolkit().createImage("fondo");
             getToolkit();
             Toolkit.getDefaultToolkit().prepareImage(img, -1, -1, null);
             return img;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return null;
         }
 
     }
 
     @Override
-    protected void paintComponent(Graphics g){
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, this);
     }
 
-    
 }
